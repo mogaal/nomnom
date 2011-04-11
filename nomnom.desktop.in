@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=NomNom
+Comment=Download videos from Youtube, Dailymotion, etc.
+Exec=${CMAKE_INSTALL_PREFIX}/bin/nomnom
+Icon=nomnom.png
+Type=Application
+Terminal=false
+Categories=AudioVideo;
+Encoding=UTF-8

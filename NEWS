@@ -1,0 +1,30 @@
+
+0.1.2   Mon Feb 07 2011     Toni Gundogdu
+Changes:
+        - Make use of a custom program icon possible
+        - Make systray icon to react to single-click
+Bugfixes:
+        - Retain umph returned feed item order
+
+
+0.1.1   Sat Dec 04 2010     Toni Gundogdu
+Changes:
+        - Set <http://nomnom.sourceforge.net/> as new home
+        - Install: Add WITHOUT_DESKTOP, WITHOUT_QM, WITHOUT_DOC
+        - Add "Minimize when download starts"
+        - Replace QStatusBar use with ProcessProgressDialog
+        - Rename History.* -> Recent.*
+        - Rename Download.* -> DownloadDiag.*
+        - Preferences: Add save directory for videos
+        - Preferences: Add "Do not prompt for filename"
+        - Sort format IDs in "Choose format" dialog
+        - Ignore error messages for canceled processes
+        - Add Youtube feed (playlist, uploads, favorites) support (umph)
+Bugfixes:
+        - CMAKE_VERBOSE_MAKEFILE
+        - About: quvi version would not show if dialog was opened repeatedly
+        - Restore if minimized (to tray) and error occurs
+
+
+0.1.0  Mon Nov 15 2010  legatvs
+        - Initial release
