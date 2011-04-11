@@ -1,0 +1,17 @@
+Source: nomnom
+Section: video
+Priority: extra
+Maintainer: Alejandro Garrido Mota <garridomota@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~), cmake, libqt4-dev
+Standards-Version: 3.9.2
+Homepage: http://nomnom.sourceforge.net/
+Vcs-Git: git://github.com/mogaal/nomnom
+
+Package: nomnom
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: download videos from Youtube and other similar video websites
+ application for downloading videos from Youtube and other similar
+ video websites that require Adobe Flash to view the video content. Video
+ streaming or downloading can be started simply by dropping an URL onto the
+ application window.
