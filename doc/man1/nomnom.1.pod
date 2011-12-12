@@ -1,0 +1,187 @@
+=head1 NAME
+
+NomNom - The graphical media download tool
+
+=head1 DESCRIPTION
+
+NomNom is an application for downloading media from Youtube and other similar
+media websites that require flash to view the media content. Media streaming
+or downloading can be started by dropping an URL onto the application window.
+
+=head2 Project name
+
+The name of the application refers to the sound effect that is made when
+eating something tasty or nutritious.
+
+=head1 GETTING STARTED
+
+=head2 Right-click opens the context-menu
+
+Most the application features can be accessed via this menu.
+
+=head2 Check the settings (Ctrl+E)
+
+NomNom will attempt to detect the available commands when you run it the
+first time. Going over the settings before use is recommended. The
+dialog will not close (by clicking OK) unless you have entered
+everything needed.
+
+=head2 Check that NomNom is set to do what you expect
+
+Make a note of the combobox widget on the main window. You may choose to
+either C<Download> or C<Stream> from the widget.
+
+=head2 Drop media page URLs to main window
+
+You could, for example, have a web browser open from which you then drag
+the URLs onto the main window of NomNom. Alternatively, open the
+right-click context-menu and choose C<Address...>.
+
+You may also consider making sure that NomNom stays on top of other
+windows if you are working on a small screen. There is an option for
+this in the application settings.
+
+=head2 NomNom defaults to resume interrupted transfers
+
+See also the L</KNOWN ISSUES> for more about this. You can also choose
+to overwrite any existing media files if you'd prefer this.
+
+=head2 You can grab media page URLs from YouTube feeds
+
+Choose C<Feed...> from the context-menu or hit the key-shortcut (Ctrl+F)
+to open the dialog.
+
+=head1 COMMAND LINE
+
+NomNom supports the following command line options.
+
+=head2 --config-path
+
+Prints the path to the local user config file and exits.
+
+=head2 --locale
+
+Prints the system locale (as returned by Qt) and exits.
+
+=head2 --detect
+
+Prints the detected commands and exits.
+
+=head2 --verbose
+
+Turns on verbose output. Please make a note that NomNom must be
+configured and built with the C<--enable-verbose> switch for this to be
+available in the application.
+
+=head2 --help
+
+Prints the help and exits.
+
+=head2 --version
+
+Prints the version and exits.
+
+=head1 GLOSSARY
+
+=head2 Media page URL
+
+NomNom feasts on media page URLs. You can drop these URLs to the
+main window to start the process of downloading (or streaming).
+
+These URLs are known to go around also as C<video page URLs>.
+
+=head3 Example
+
+http://vimeo.com/1485507
+
+=head2 Media stream URL
+
+Not to be confused with L</Media page URL>. The media I<stream> URL is
+the URL to the media resource that is returned by the C<quvi(1)>
+command and then used by NomNom to either download or stream from it.
+
+=head2 YouTube feeds
+
+NomNom can read, with the help of C<umph(1)> command, and grab media
+URLs from YouTube feeds. These feeds may be I<playlists>, user
+I<favorites> and user I<uploads>.
+
+You can open the user-interface by selecting it from the right-click
+context-menu (C<Feed...>) or by hitting the key-shortcut (Ctrl+F).
+
+=head2 YouTube format strings
+
+The YouTube C<fmtNN> string IDs are documented at:
+ http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs
+
+=head1 KNOWN ISSUES
+
+=head2 Resuming partially transferred files may fail
+
+Some websites are known to refuse to work with the HTTP requests to
+resume a file transfer.
+
+=head3 Workaround
+
+Either check "Always overwrite existing media files" in the settings
+or remove the existing file manually.
+
+=head2 HTTP user-agent
+
+Some websites refuse to play nice with renegade user-agent strings.
+
+=head3 Recommendations
+
+Make sure both C<quvi(1)> and C<curl(1)> use the same user-agent string.
+Note that C<quvi(1)> uses "Mozilla/5.0" by default.
+
+=head2 HTTP proxy
+
+Generally OK, although some proxies may have been configured to
+C<cook up> the HTTP headers before they are sent back to the server.
+This may sometimes lead to issues with the servers.
+
+=head3 Recommendations
+
+If you use an HTTP proxy, make sure you have configured all of the commands
+that NomNom uses (e.g. C<quvi(1)>, C<curl(1)>, etc.) to use the same proxy.
+
+=head1 TIPS
+
+=head2 Use configuration files
+
+Although it is possible to configure custom commands for NomNom to use
+(via C<settings> and C<commands>), another way is to add/edit the appropriate
+configuration files for these commands.
+
+=head3 Examples
+
+ ~/.quvirc ;# refer to the quvi(1) documentation
+ ~/.umphrc ;# refer to the umph(1) documentation
+ ~/.curlrc ;# refer to the curl(1) documentation
+
+Same goes for whatever media player you choose to use with NomNom.
+
+=head1 FILES
+
+=head2 Configuration file
+
+The location of this file may vary and depends on how Qt was configured.
+You can use the C<--config-path> program option to print it. See also
+L</COMMAND LINE>.
+
+=head1 LICENSE
+
+NomNom is free software, licensed under the GPLv3+.
+
+=head1 WWW
+
+ Home  : <http://nomnom.sourceforge.net/>
+ gitweb: <http://repo.or.cz/w/nomnom.git>
+
+=head1 AUTHOR
+
+Toni Gundogdu E<lt>legatvs at sign gmail comE<gt>
+
+Thanks to all those who have contributed to the project by sending
+patches, reporting bugs and writing feedback. You know who you are.

@@ -1,9 +1,10 @@
 [Desktop Entry]
 Name=NomNom
-Comment=Download videos from Youtube, Dailymotion, etc.
-Exec=${CMAKE_INSTALL_PREFIX}/bin/nomnom
-Icon=nomnom.png
+Comment=Download and stream media
+Exec=@prefix@/bin/nomnom
+Icon=nomnom.xpm
 Type=Application
 Terminal=false
-Categories=AudioVideo;
-Encoding=UTF-8
+StartupNotify=true
+Categories=Network;AudioVideo;
+Version=@VERSION@

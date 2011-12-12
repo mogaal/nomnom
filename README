@@ -1,58 +1,7 @@
 
+NomNom is an application for downloading media from Youtube and other similar
+media websites that require flash to view the media content. Media streaming
+or downloading can be started by dropping an URL onto the application window.
 
-NomNom
-===========
-
-NomNom is an application for downloading videos from Youtube and other similar
-video websites that require Adobe Flash to view the video content. Video
-streaming or downloading can be started simply by dropping an URL onto the
-application window.
-
-NomNom relies on a number of different other programs: quvi(1) to parse the
-video links, curl(1) to download the videos, and a media streaming capable
-player software, such as vlc(1), to stream the media. NomNom is written in
-C++ to use the Qt framework.
-
-The name of the application refers to the sound effect that is made when
-eating something tasty or nutritious.
-
-WWW: <http://nomnom.sourceforge.net/>
-GIT: <git://repo.or.cz/nomnom.git>
-
-
-NOTES
-
-  * Configuration
-
-    Possibly the most difficult part of the application from a user's
-    point of view. We have hardcoded some of the typical values for
-    quvi(1), curl (1) and vlc(1) that NomNom uses as defaults to make
-    this easier.
-  
-  * System wide configuration
-
-    Packagers are encouraged to add a system wide configuration file
-    to their NomNom packages with typical settings to their distros.
-    Please read the "NOTES FOR PACKAGERS" in the INSTALL file.
-
-
-GETTING STARTED
-
-  * Right-click on the window to open the context-menu
-
-  * Check the configuration (Preferences, Ctrl+E)
-
-    - Check the paths to quvi(1), curl(1) and player (e.g. vlc(1))
-
-      The default values should work on most systems out of the box.
-      Make any changes you see necessary.
-
-  * Drag and drop video page URLs from, for example, your web browser.
-  This starts the download (or streaming if selected).
-
-  * You can make NomNom stay on top of other windows (Preferences / Other).
-  This will make it easier to use NomNom if you have limited screen space.
-
-  * Nomnom resumes file transfers by default (determined by the curl command
-  in the Preferences). Check "Overwrite" in the context menu if you want to
-  overwrite the existing files.
+Home  : <http://nomnom.sourceforge.net/>
+gitweb: <http://repo.or.cz/w/nomnom.git>

@@ -1,111 +1,43 @@
 
 
-NomNom
-===============
+Prerequisites
+=============
 
-PREREQUISITES
-
-* quvi (0.2.8+)     <http://quvi.googlecode.com/>
-* umph (0.1.6+)     <http://umph.googlecode.com/>
-* curl (7.20.0+)    <http://curl.haxx.se/>
-* qt   (4.7+)       <http://qt.nokia.com/>
-* media player
-  - that supports streaming (e.g. vlc)
-
--- To compile
-* gcc/g++   (4.5.0+)
-* cmake     (2.8.2+)
-
-The above versions have been tested, earlier versions _may_ work (apart from
-quvi).
+* quvi  (0.2.16.1+)  <http://quvi.sourceforge.net/>
+* umph  (0.1.6+)     <http://umph.googlecode.com/>
+* curl  (7.20.0+)    <http://curl.haxx.se/>
+* qt    (4.6+)       <http://qt.nokia.com/>
+                        You can run "grep < configure.ac ^PKG" to get a
+                        list of the Qt modules that nomnom uses
+* qjson (0.7.1+)     <http://qjson.sourceforge.net>
+* media player that supports streaming (e.g. vlc, mplayer)
 
 
-INSTALLATION
+Installation from source
+========================
 
-% tar xf nomnom-$release.tar.gz ; cd nomnom-$release
-% mkdir tmp ; cd tmp
-% cmake -DCMAKE_BUILD_TYPE=debug -DCMAKE_INSTALL_PREFIX=/usr ..
-% make
-% make install # as root
-...
-% make uninstall # as root
+"./configure && make install", typically. See also "./configure --help".
+If you are compiling nomnom from the development code from the git
+repository, see "Installation from development code", instead.
 
+  --enable-verbose    Enable --verbose program option
+                        If enabled, the program can use --verbose to
+                        turn on verbose output to stderr. Recommended
+                        for debugging purposes only.
 
-INSTALLATION VARIABLES
-
-These may be some of the frequently used ones.
-
-    * CMAKE_INSTALL_PREFIX=$path
-        Install destination for NomNom, system default may vary.
-
-    * CMAKE_BUILD_TYPE=(none|debug|release|relwithdebinfo|minsizerel)
-        Type of build, default is "debug".
-
-    * CMAKE_VERBOSE_MAKEFILE=(true,false)
-        Build with verbose makefiles, default is "false".
-
-    * WITHOUT_DESKTOP=(true,false)
-        Install without desktop integration files (e.g. .desktop, nomnom.png).
-
-    * WITHOUT_QM=(true,false)
-        Install without translations (e.g. *.qm files).
-
-    * WITHOUT_DOC=(true,false)
-        Install without documentation (e.g. doc/Howto* files).
-
-Example:
-    % mkdir tmp; cd tmp
-    % cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
-    % make install
-
-You can also run cmake with -i (wizard mode).
-
-Edit CMakeLists.txt file if you need to dig deeper.
-See also the CMake (2.8) documentation at:
-    <http://www.cmake.org/cmake/help/cmake-2-8-docs.html>
+  --without-manual    Do not install manual pages
 
 
-NOTES FOR PACKAGERS
+Installation from development code
+==================================
 
-1) Porting.
+If you are compiling nomnom from the development code, run "autogen.sh",
+first. This generates the configuration files that are not in the git
+repository. You will need:
 
-Please ask the platform specific questions from those familiar with your
-platform. We're currently Linux only.
+  * Perl (with pod2man)
+  * GNU autoconf
+  * GNU automake
 
-If you need an additional check for, e.g. a symbol or a function, see the
-top-level CMakeLists.txt file and the config.h.in file. We can add those
-at the upstream if that makes porting easier.
-
-2) Default system wide configuration file.
-
-From users' perspective, configuring NomNom is likely the most demanding
-part of the application.
-
-Please consider including a preconfigured (e.g. system wide) config file
-in your package tailored for your distro.
-
-Open the Preferences, select Other to see where NomNom saves your config
-file. You can use the file as a template for your package.
-
-For example:
-
-    quvi: /usr/bin/quvi %u
-    curl: /usr/bin/curl -L -C - -o %f %u
-    player: /usr/bin/vlc --quiet %u
-
-NomNom sets the above values (without paths) by default if nothing was
-found.
-
-For the details, refer to the Qt's QSettings class reference and platform
-specific notes (below) about the system wide configuration. On Unix-like
-systems, QSettings typically checks the following paths:
-
-    /etc/xdg/NomNom/NomNom.conf
-    /etc/xdg/NomNom.conf
-    /etc/NomNom.conf
-    
-Note that this may vary depending on how the Qt was configured and packaged
-for your distro. See also:
-
-    <http://doc.trolltech.com/4.7/qsettings.html>
-    <http://doc.trolltech.com/4.7/qsettings.html#platform-specific-notes>
+Once the files have been generated, follow the instructions of "Installation
+from source" above.

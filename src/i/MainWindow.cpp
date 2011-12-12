@@ -1,754 +1,860 @@
 /*
-* Copyright (C) 2010 Toni Gundogdu.
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * NomNom
+ * Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
+#include "config.h"
+
+#include <QInputDialog>
 #include <QMainWindow>
 #include <QCloseEvent>
 #include <QFileDialog>
+#include <QMessageBox>
+#include <QSettings>
 #include <QRegExp>
-#include <QDebug>
 
-#include "util.h"
-#include "Log.h"
-#include "Recent.h"
-// UI
-#include "About.h"
-#include "Preferences.h"
-#include "LogView.h"
-#include "Reminder.h"
-#include "YoutubeFeed.h"
+#ifdef ENABLE_VERBOSE
+#include <QDebug>
+#endif
+
+#include <NErrorWhileDialog>
+#include <NSettingsMutator>
+#include <NSettingsDialog>
+#include <NRecentMutator>
+#include <NRecentEntry>
+#include <NAboutDialog>
+#include <NFeedDialog>
+#include <NLogDialog>
+#include <NSettings>
+#include <NSysTray>
+#include <NLang>
+#include <NUtil>
+
+#include "DownloadDiag.h"
+#include "ProcProgDiag.h"
 #include "MainWindow.h"
 
 #define QSETTINGS_GROUP             "MainWindow"
-#define QSETTINGS_REMINDER_SHOWTIPS "showTips"
 
 // main.cpp
 
-extern QMap<QString,QStringList> hosts;
-extern SharedPreferences shPrefs;
-extern Recent recent;
-extern Log log;
+extern bool have_quvi_feature_query_formats;
+extern nn::NSettingsMutator settings;
+extern bool have_umph_feature_all;
+extern nn::NRecentMutator recent;
+extern nn::NSysTray *systray;
 
-// Modes.
+enum { StreamMedia=0, DownloadMedia };
 
-enum { StreamVideo=0, DownloadVideo };
-
-// Ctor.
-
-MainWindow::MainWindow  ()
+MainWindow::MainWindow()
 {
-  setupUi (this);
+  setupUi(this);
+  restore();
 
-  readSettings ();
+// Create Download dialog.
 
-  // Stay on top?
+  _download = new DownloadDialog(this);
 
-  if (shPrefs.get (SharedPreferences::StayOnTop).toBool ())
-    setWindowFlags (windowFlags () | Qt::WindowStaysOnTopHint);
+// Create Process Progress dialog for quvi.
 
-  // Create Video instance.
+  _proc = new ProcessProgressDialog(this);
 
-  video  = new Video;
+  connect(_proc, SIGNAL(finished(QString)),
+          this, SLOT(onProcFinished(QString)));
 
-  // Create context menu.
+// Recent URLs.
 
-  createContextMenu ();
+  recent.setMaxItems(25);
+  recent.read();
 
-  // Create system tray icon.
+// Custom program icon.
 
-  createTray ();
-
-  // Create Download dialog.
-
-  download = new DownloadDialog (this);
-
-  // Create Process Progress dialog for quvi.
-
-  proc = new ProcessProgressDialog (this);
-
-  connect (proc, SIGNAL (finished (QString)),
-           this, SLOT (onProcFinished (QString)));
-
-  QHash<QString,QRegExp> h;
-
-#define _wrap(s,r) \
-    do { h[s] = QRegExp(r); } while (0)
-
-  _wrap(tr("Checking..."),    "^:: Check");
-  _wrap(tr("Fetching..."),    "^:: Fetch");
-  _wrap(tr("Verifying..."),   "^:: Verify");
-
-#undef _wrap
-
-  proc->setLabelRegExp (h);
-
-  log << tr ("Program started.") + "\n";
-
-  // Custom program icon.
-
-  if (shPrefs.get (SharedPreferences::CustomProgramIcon).toBool ())
-    changeProgramIcon ();
-
+#ifdef _1
+  if (shPrefs.get(SharedPreferences::CustomProgramIcon).toBool())
+    changeProgramIcon();
+#endif
 }
 
-void
-MainWindow::createContextMenu ()
+void MainWindow::createContextMenu()
 {
 #define creat_a(t,f,c) \
     do { \
-        QAction *a = new QAction (t, textBrowser); \
+        QAction *a = new QAction(t, textBrowser); \
         if (c) { \
-            a->setCheckable (c); \
-            /*connect (a, SIGNAL(toggled (bool)), SLOT(f (bool)));*/ \
+            a->setCheckable(c); \
+            /*connect(a, SIGNAL(toggled(bool)), SLOT(f(bool)));*/ \
         } \
         else \
-            connect (a, SIGNAL(triggered ()), SLOT(f ())); \
-        textBrowser->addAction (a); \
-        actions[t] = a; \
+            connect(a, SIGNAL(triggered()), SLOT(f())); \
+        textBrowser->addAction(a); \
+        _actions[t] = a; \
     } while (0)
 
 #define add_s \
     do { \
-        QAction *a = new QAction (textBrowser); \
-        a->setSeparator (true); \
-        textBrowser->addAction (a); \
+        QAction *a = new QAction(textBrowser); \
+        a->setSeparator(true); \
+        textBrowser->addAction(a); \
     } while (0)
 
-  creat_a (tr("Address..."),  onAddress,  false);
-  creat_a (tr("Feed..."),     onFeed,     false);
-  creat_a (tr("Recent..."),   onRecent,   false);
+  creat_a(tr("Address..."),  onAddress,   false);
+  creat_a(tr("Feed..."),     onFeed,      false);
+  creat_a(tr("Recent..."),   onRecent,    false);
   add_s;
-  creat_a (tr("Overwrite"),   _,          true);
+  creat_a(tr("Settings..."), onSettings,  false);
   add_s;
-  creat_a (tr("Log..."),         onLog,         false);
-  creat_a (tr("Preferences..."), onPreferences, false);
-  add_s;
-  creat_a (tr("About..."),    onAbout,    false);
-  creat_a (tr("Quit"),        close,      false);
+  creat_a(tr("About..."),    onAbout,     false);
+  creat_a(tr("Quit"),        onTerminate, false);
 
 #undef add_s
 #undef creat_a
 
-  // Add key shortcuts.
+// Add key shortcuts.
 
 #define _wrap(s,k) \
-    do { actions[s]->setShortcut (QKeySequence(k)); } while (0)
+    do { _actions[s]->setShortcut(QKeySequence(k)); } while (0)
 
-  _wrap (tr("Address..."),    "Ctrl+A");
-  _wrap (tr("Feed..."),       "Ctrl+F");
-  _wrap (tr("Recent..."),     "Ctrl+R");
+  _wrap(tr("Address..."),    "Ctrl+A");
+  _wrap(tr("Feed..."),       "Ctrl+F");
+  _wrap(tr("Recent..."),     "Ctrl+R");
   // --
-  _wrap (tr("Overwrite"),     "Ctrl+W");
+  _wrap(tr("Settings..."),   "Ctrl+E");
   // --
-  _wrap (tr("Log..."),        "Ctrl+L");
-  _wrap (tr("Preferences..."),"Ctrl+E");
-  // --
-  _wrap (tr("Quit"),          "Ctrl+Q");
-
+  _wrap(tr("Quit"),          "Ctrl+Q");
 #undef _wrap
 
-  // Add the context menu.
+// Add the context menu.
 
-  textBrowser->setContextMenuPolicy (Qt::ActionsContextMenu);
+  textBrowser->setContextMenuPolicy(Qt::ActionsContextMenu);
 }
 
-// Create tray icon.
-
-void
-MainWindow::createTray ()
+void MainWindow::createTrayIcon()
 {
-  trayMenu = new QMenu(this);
+  systray = new nn::NSysTray(this, QString("<b>NomNom</b> %1").arg(VN));
 
-#define creat_a(t,f) \
-    do { \
-        QAction *a = new QAction(t, this); \
-        connect(a, SIGNAL(triggered()), this, SLOT(f)); \
-        actions[t] = a; \
-        trayMenu->addAction(a); \
-    } while (0)
+  connect(systray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+          this, SLOT(activated(QSystemTrayIcon::ActivationReason)));
 
-  creat_a ( tr("Open"), showNormal() );
-  trayMenu->addSeparator();
-  creat_a ( tr("Quit"), close() );
+  systray->addTrayMenuAction(SIGNAL(toggled(bool)),
+                             this,
+                             SLOT(setVisible(bool)),
+                             tr("Show"),
+                             true);
 
-#undef creat_a
+#ifdef _1
+  // FIXME: If mainwindow is hidden, closing the NSettingsDialog causes
+  // the program to exit.
+  systray->addTrayMenuAction(SIGNAL(triggered()),
+                             this,
+                             SLOT(onSettings()),
+                             tr("Settings..."));
+#endif
 
-  trayIcon = new QSystemTrayIcon (this);
+  systray->addTrayMenuSeparator();
 
-  trayIcon->setContextMenu (trayMenu);
-  trayIcon->setIcon (QIcon (":img/nomnom.png"));
+  systray->addTrayMenuAction(SIGNAL(triggered()),
+                             this,
+                             SLOT(onTerminate()),
+                             tr("Quit"));
 
-  connect(trayIcon, SIGNAL( activated(QSystemTrayIcon::ActivationReason) ),
-          this, SLOT( onTrayActivated(QSystemTrayIcon::ActivationReason) ) );
+  systray->setIcon(QIcon(":img/nomnom.png"));
+  systray->setTrayMenu();
+
+  const bool startInTray = settings.value(nn::StartInTrayIcon).toBool();
+  const bool showInTray = settings.value(nn::ShowInTrayIcon).toBool();
+
+  systray->setVisible(showInTray);
+
+  if (showInTray)
+    startInTray ? hide() : show();
+  else
+    show();
 }
 
-// Show event.
-
-void
-MainWindow::showEvent (QShowEvent *e)
+#ifdef ENABLE_VERBOSE
+static void print_url(const nn::NRecentEntry& r)
 {
-  trayIcon->hide();
-  e->accept();
+  qDebug() << __PRETTY_FUNCTION__ << __LINE__ << r.url();
 }
+#endif
 
-// Hide event.
-
-void
-MainWindow::hideEvent (QHideEvent *e)
+void MainWindow::handleURL(const QString& u)
 {
-  if (QSystemTrayIcon::isSystemTrayAvailable()
-      && shPrefs.get(SharedPreferences::MinToTray).toBool())
-    {
-      trayIcon->show();
-      if (!isMinimized())
-        hide();
-    }
-  e->accept();
-}
+  const QUrl url = QUrl::fromUserInput(u);
 
-// Close event.
-
-void
-MainWindow::closeEvent (QCloseEvent *e)
-{
-  QSettings s;
-  NomNom::save_size (s, this, QSETTINGS_GROUP);
-  NomNom::save_pos (s, this, QSETTINGS_GROUP);
-
-  s.beginGroup (QSETTINGS_GROUP);
-  s.setValue ("modeCBox", modeCBox->currentIndex ());
-  s.endGroup ();
-
-  recent.write ();
-
-  e->accept ();
-}
-
-// Read.
-
-void
-MainWindow::readSettings ()
-{
-  QSettings s;
-
-  NomNom::restore_size(s, this, QSETTINGS_GROUP, QSize(130,150));
-  NomNom::restore_pos(s, this, QSETTINGS_GROUP);
-
-  s.beginGroup(QSETTINGS_GROUP);
-  modeCBox->setCurrentIndex(s.value("modeCBox").toInt());
-  s.endGroup();
-
-  Reminder (this, "SharedPreferences").conditionalExec ();
-
-  // Re-read (now updated) "showReminder" value. This was previously done
-  // in main.cpp, but has to be done here if we expect the Preferences
-  // "show tips" box value to match the one set in the Reminder dialog.
-
-  shPrefs.read ();
-}
-
-// Handle (dropped) URL.
-
-void
-MainWindow::handleURL (const QString& url)
-{
-  // Check paths.
-
-  const QString quviPath =
-    shPrefs.get (SharedPreferences::QuviPath).toString ().simplified ();
-
-  if (quviPath.isEmpty ())
-    {
-      NomNom::crit (this, tr ("You must specify path to the quvi command."));
-      onPreferences ();
-      return;
-    }
-
-  if (hosts.isEmpty ())
-    {
-      QString errmsg;
-      if (!NomNom::parse_quvi_support (quviPath, errmsg))
-        {
-          NomNom::crit (this, errmsg);
-          return;
-        }
-    }
-
-  const QString playerPath =
-    shPrefs.get (SharedPreferences::PlayerPath).toString ().simplified ();
-
-  if (playerPath.isEmpty ())
-    {
-
-      NomNom::crit (this,
-                    tr ("You must specify path to a stream-capable media "
-                        "player command."));
-
-      onPreferences ();
-
-      return;
-    }
-
-  // Recent.
-
-  recent << url;
-
-  // quvi args.
-
-  QStringList args =
-    quviPath.split (" ").replaceInStrings ("%u", url);
-
-  // Choose format.
-
-  QStringList formats;
-
-  foreach (QString key, hosts.keys ())
+  if (!url.isValid())
   {
-    QRegExp re (key);
-    if (re.indexIn (url) != -1)
-      {
-        formats = hosts.value (key);
-        break;
-      }
+    // QUrl::errorString() is less than ideal.
+    nn::info(this, tr("Invalid URL: %1").arg(u));
+    return;
   }
 
-  if (formats.size () > 1)   // Assume "default" is always present.
+  QString s = settings.eitherValue(nn::ParseUsing,
+                                   nn::ParseUsingOther)
+              .toString()
+              .simplified();
+
+  QStringList q_args = nn::to_cmd_args(s);
+  const QString q = q_args.first();
+
+#ifdef ENABLE_VERBOSE
+  qDebug() << __PRETTY_FUNCTION__ << __LINE__ << "quvi_path=" << q;
+#endif
+
+  if (q.isEmpty())
     {
-      bool ok = false;
-      QString s = QInputDialog::getItem (
-                    this,
-                    tr ("Choose format"),
-                    tr ("Format:"),
-                    formats,
-                    0,
-                    false,
-                    &ok
-                  );
-      if (ok)
-        args << "-f" << s;
-      else
+      nn::info(this, tr("Please configure the path to the quvi. "
+                        "See under the \"commands\" in the settings."));
+      onSettings();
+      return;
+    }
+
+  s = settings.eitherValue(nn::PlayUsing,
+                           nn::PlayUsingOther)
+      .toString()
+      .simplified();
+
+  QStringList p_args = nn::to_cmd_args(s);
+  const QString p = p_args.first();
+
+  if (p.isEmpty())
+    {
+      nn::info(this, tr("Please configure the path to a media player. "
+                        "See under the \"commands\" in the settings."));
+      onSettings();
+      return;
+    }
+
+// Recent.
+
+  nn::NRecentEntry e;
+  e.setURL(url.toEncoded());
+
+  recent << e;
+
+#ifdef ENABLE_VERBOSE
+  recent.for_each(print_url);
+#endif
+
+// 0x1=invalid input, 0x3=no input
+
+  have_quvi_feature_query_formats =
+    nn::check_for_cmd_feature(nn::ParseUsing,
+                              nn::ParseUsingOther,
+                              "-F",
+                              0x3);
+
+// Query formats to an URL.
+
+#ifdef ENABLE_VERBOSE
+  qDebug() << __PRETTY_FUNCTION__ << __LINE__
+           << "have_quvi_feature_query_formats="
+           << have_quvi_feature_query_formats;
+#endif
+
+  const bool get_best = settings.value(nn::GetBestFormat).toBool();
+
+  QStringList formats;
+  if (have_quvi_feature_query_formats && !get_best)
+    {
+      bool failed = false;
+
+      if (!queryFormats(formats, q_args, url, failed))
+        formats.clear();
+
+      if (failed)
+        {
+          nn::NErrorWhileDialog *d =
+            new nn::NErrorWhileDialog(q_args,
+                                      _proc->errmsg(),
+                                      _proc->errcode(),
+                                      this);
+          d->exec();
+          return;
+        }
+
+      if (_proc->canceled())
         return;
     }
 
-  log << args.join (" ") + "\n";
+  _json.clear();
 
-  json.clear ();
+// Choose format.
 
-  proc->setLabelText (tr ("Checking ..."));
-  proc->setMaximum (0);
-  proc->start (args);
+  QString fmt;
+  if (!selectFormat(formats, fmt, get_best))
+    return;
 
-  if (parseOK ())
+// Query media stream data.
+
+  q_args.replaceInStrings("%u", url.toEncoded());
+  q_args << "-f" << fmt;
+
+#ifdef ENABLE_VERBOSE
+  qDebug() << __PRETTY_FUNCTION__ << __LINE__ << "q_args=" << q_args;
+#endif
+
+  _proc->setLabelText(tr("Checking..."));
+  _proc->setMaximum(0);
+  _proc->start(q_args);
+
+  if (_proc->canceled())
+    return;
+
+// Check for quvi errors.
+
+  QString errmsg;
+  if (parseOK(errmsg))
     {
-      if (modeCBox->currentIndex() == StreamVideo)
-        streamVideo ();
+      // Update recent entry. Media URL is set already. Update title
+      // only.
+
+      e.setTitle(_media.get(Media::PageTitle).toString().simplified());
+      recent.update(e);
+
+      // Download media or pass media stream URL.
+
+      if (modeCBox->currentIndex() == StreamMedia)
+        streamMedia();
       else
-        downloadVideo();
+        downloadMedia();
     }
-}
-
-// View video (stream).
-
-void
-MainWindow::streamVideo ()
-{
-
-  QStringList args =
-    shPrefs.get (SharedPreferences::PlayerPath)
-    .toString ().simplified ().split (" ");
-
-  args = args.replaceInStrings ("%u", video->get (Video::Link).toString ());
-
-  log  << args.join(" ") + "\n";
-
-  const bool ok = QProcess::startDetached (args.takeFirst (), args);
-
-  if (!ok)
+  else
     {
-      NomNom::crit (this,
-                    tr ("Unable to start player command, check the Preferences."));
+      nn::NErrorWhileDialog *d =
+        new nn::NErrorWhileDialog(q_args,
+                                  errmsg,
+                                  _proc->errcode(),
+                                  this);
+      d->exec();
     }
 }
 
-// Download video (to a file).
-
-void
-MainWindow::downloadVideo ()
+bool MainWindow::queryFormats(QStringList& formats,
+                              const QStringList& q_args,
+                              const QUrl& url,
+                              bool& failed)
 {
-  QString fname =
-    shPrefs.get (SharedPreferences::FilenameFormat).toString ();
+  QStringList args = q_args;
+  args.replaceInStrings("%u", url.toEncoded());
+  args << "-F";
+
+#ifdef ENABLE_VERBOSE
+  qDebug() << __PRETTY_FUNCTION__ << __LINE__ << "args=" << args;
+#endif
+
+  _json.clear();
+
+  _proc->setLabelText(tr("Checking..."));
+  _proc->setMaximum(0);
+  _proc->start(args);
+
+  failed = _proc->failed();
+  if (failed)
+    return false;
+
+#ifdef ENABLE_VERBOSE
+  qDebug() <<  __PRETTY_FUNCTION__ << __LINE__ << "failed=" << failed;
+#endif
+
+  QStringList lns = _json.split("\n");
+  lns.removeDuplicates();
+
+  const QRegExp rx("^(.*)\\s+:\\s+");
+  foreach (const QString s, lns)
+  {
+    if (rx.indexIn(s) != -1)
+      {
+        formats = QStringList()
+                  << "default"
+                  << "best"
+                  << rx.cap(1).simplified().split("|");
+
+#ifdef ENABLE_VERBOSE
+        qDebug() << __PRETTY_FUNCTION__ << __LINE__ << "formats=" << formats;
+#endif
+
+        return true;
+      }
+  }
+  return false;
+}
+
+bool MainWindow::selectFormat(QStringList& formats,
+                              QString& fmt,
+                              const bool get_best)
+{
+  if (get_best)
+    {
+      fmt = "best";
+      return true;
+    }
+
+  if (formats.size() < 2) // Skip prompt unless >1 formats available
+    {
+      fmt = "default";
+      return true;
+    }
+
+  bool ok = false;
+  fmt = QInputDialog::getItem(this,
+                              tr("Choose format"),
+                              tr("Format:"),
+                              formats << tr("Enter your own"),
+                              0,
+                              false,
+                              &ok);
+  if (!ok)
+    return false; // Cancel
+
+  if (fmt == tr("Enter your own"))
+    {
+      fmt = QInputDialog::getText(this,
+                                  tr("Enter format"),
+                                  tr("Format:"),
+                                  QLineEdit::Normal,
+                                  "default",
+                                  &ok);
+    }
+  return ok && !fmt.isEmpty();
+}
+
+void MainWindow::streamMedia()
+{
+  const QString p = settings.eitherValue(nn::PlayUsing,
+                                         nn::PlayUsingOther)
+                    .toString()
+                    .simplified();
+
+  QStringList args = nn::to_cmd_args(p);
+  args.replaceInStrings("%m", _media.get(Media::StreamURL).toString());
+
+  const QString cmd = args.takeFirst();
+
+  if (!QProcess::startDetached(cmd, args))
+    {
+      nn::NErrorWhileDialog *d =
+        new nn::NErrorWhileDialog(QStringList() << cmd << args,
+                                  tr("Unknown error while attempting to "
+                                     "start a detached process"),
+                                  -1,
+                                  this);
+      d->exec();
+    }
+}
+
+void MainWindow::downloadMedia()
+{
+  QString fname = settings.value(nn::FilenameFormat).toString();
 
   const QString suffix =
-    video->get (Video::Suffix).toString ().simplified ();
+    _media.get(Media::FileSuffix).toString().simplified();
 
-  bool ok = NomNom::format_filename (
-              this,
-              shPrefs.get (SharedPreferences::Regexp).toString (),
-              video->get (Video::Title).toString ().simplified (),
+  bool ok = nn::format_filename(
+              settings.value(nn::FilenameRegExp).toString(),
+              _media.get(Media::PageTitle).toString().simplified(),
+              _media.get(Media::MediaID).toString().simplified(),
+              _media.get(Media::Host).toString().simplified(),
               suffix,
-              video->get (Video::Host).toString ().simplified (),
-              video->get (Video::ID).toString ().simplified (),
               fname
             );
 
   if (!ok)
     return;
 
-  QString fpath =
-    shPrefs.get (SharedPreferences::SaveDir).toString ();
+  QString fpath = settings.value(nn::SaveMediaDirectory).toString();
 
-  if (fpath.isEmpty ())
-    fpath = QDir::currentPath ();
+  if (fpath.isEmpty())
+    fpath = QDir::homePath();
 
-  fpath = QDir::toNativeSeparators (fpath +"/"+ fname);
+  fpath = QDir::toNativeSeparators(fpath +"/"+ fname);
 
-  const bool dont_prompt =
-    shPrefs.get (SharedPreferences::DontPromptFilename).toBool ();
+  const bool ask_where_to_save =
+    settings.value(nn::AskWhereToSaveMediaFile).toBool();
 
-  if (!dont_prompt)
+  if (ask_where_to_save)
     {
-
       const QFileDialog::Options opts =
         QFileDialog::DontConfirmOverwrite;
 
-      fpath = QFileDialog::getSaveFileName (
-                this,
-                tr ("Save video as"),
-                fpath,
-                suffix, // Filter.
-                0,      // Selected filter.
-                opts
-              );
-
-      if (fpath.isEmpty ())
+      fpath = QFileDialog::getSaveFileName(this,
+                                           tr("Save media as"),
+                                           fpath,
+                                           suffix, // Filter.
+                                           0,      // Selected filter.
+                                           opts);
+      if (fpath.isEmpty())
         return;
     }
 
-  if (actions[tr("Overwrite")]->isChecked ())
-    QDir ().remove (fpath);
+  if (settings.value(nn::ReplaceExistingMedia).toBool())
+    QDir().remove(fpath);
 
   const qint64 expected_bytes =
-    video->get (Video::Length).toLongLong ();
+    _media.get(Media::LengthBytes).toLongLong();
 
-  if (QFileInfo (fpath).size () < expected_bytes)
+  if (QFileInfo(fpath).size() < expected_bytes)
     {
+      const QString p = settings.eitherValue(nn::DownloadUsing,
+                                             nn::DownloadUsingOther)
+                        .toString()
+                        .simplified();
 
-      const QString cmd =
-        shPrefs.get (SharedPreferences::CurlPath).toString ().simplified ();
+      QStringList args = nn::to_cmd_args(p);
+      args.replaceInStrings("%u", _media.get(Media::StreamURL).toString());
+      args.replaceInStrings("%f", fpath);
 
-      download->start (cmd, fpath, video);
+      _download->start(args);
+
+      if (_download->canceled())
+        return;
+
+      if (_download->failed())
+        {
+          nn::NErrorWhileDialog *d =
+            new nn::NErrorWhileDialog(args,
+                                      _download->errmsg(),
+                                      _download->errcode(),
+                                      this);
+          d->exec();
+          return;
+        }
     }
 
   const bool completeFile =
-    QFileInfo (fpath).size () >= expected_bytes;
+    QFileInfo(fpath).size() >= expected_bytes;
 
   const bool playWhenDone =
-    shPrefs.get (SharedPreferences::PlayWhenDone).toBool ();
+    settings.value(nn::PlayWhenDoneDownloading).toBool();
 
-#ifdef _0
-  qDebug ()
-      << QFileInfo (fpath).size ()
-      << expected_bytes
-      << completeFile
-      << playWhenDone;
+#ifdef ENABLE_VERBOSE
+  qDebug() << __PRETTY_FUNCTION__ << __LINE__ << "file="
+           << QFileInfo(fpath).size()
+           << expected_bytes
+           << completeFile
+           << playWhenDone;
 #endif
 
   if (completeFile && playWhenDone)
     {
+      const QString p = settings.eitherValue(nn::PlayUsing,
+                                             nn::PlayUsingOther)
+                        .toString()
+                        .simplified();
 
-      QStringList args =
-        shPrefs.get (SharedPreferences::PlayerPath)
-        .toString ().simplified ().split (" ");
+      QStringList args = nn::to_cmd_args(p);
+      args.replaceInStrings("%m", fpath);
 
-      args = args.replaceInStrings ("%u", fpath);
+#ifdef ENABLE_VERBOSE
+      qDebug() << __PRETTY_FUNCTION__ << __LINE__ << "args=" << args;
+#endif
 
-      log  << args.join(" ") + "\n";
+      const QString cmd = args.takeFirst();
 
-      const bool ok = QProcess::startDetached (args.takeFirst (), args);
-
-      if (!ok)
+      if (!QProcess::startDetached(cmd, args))
         {
-          NomNom::crit (this,
-                        tr ("Unable to start player command, check the Preferences."));
+          nn::NErrorWhileDialog *d =
+            new nn::NErrorWhileDialog(QStringList() << cmd << args,
+                                      tr("Unknown error while attempting to "
+                                         "start a detached process"),
+                                      -1,
+                                      this);
+          d->exec();
         }
-
     }
-
 }
 
-// Change program icon.
-
-void
-MainWindow::changeProgramIcon ()
+void MainWindow::changeProgramIcon()
 {
+#ifdef _1
   const bool customProgramIcon =
-    shPrefs.get (SharedPreferences::CustomProgramIcon).toBool ();
+    shPrefs.get(SharedPreferences::CustomProgramIcon).toBool();
 
-  QString html = textBrowser->toHtml ();
+  QString html = textBrowser->toHtml();
 
   const QString iconPath =
     customProgramIcon
-    ? shPrefs.get (SharedPreferences::ProgramIconPath).toString ()
+    ? shPrefs.get(SharedPreferences::ProgramIconPath).toString()
     : ":img/nomnom.png";
 
-  html.replace (QRegExp ("img src=\".*\""), "img src=\"" +iconPath+ "\"");
+  html.replace(QRegExp("img src=\".*\""), "img src=\"" +iconPath+ "\"");
 
-  textBrowser->setHtml (html);
+  textBrowser->setHtml(html);
 
-  QIcon icon = QIcon (iconPath);
-
-  setWindowIcon     (icon);
-  trayIcon->setIcon (icon);
+  QIcon icon = QIcon(iconPath);
+  trayIcon->setIcon(icon);
+  setWindowIcon(icon);
+#endif // _1
 }
 
-// Parse JSON data returned by quvi.
-
-bool
-MainWindow::parseOK ()
+bool MainWindow::parseOK(QString& errmsg)
 {
-  const int n = json.indexOf ("{");
-
-  if (n == -1)
-    return false;
-
-  QString error;
-
-  if (!video->fromJSON (json.mid (n), error))
+  if (_proc->failed())
     {
-      NomNom::crit (this, error);
+      errmsg = _proc->errmsg();
       return false;
     }
-
-  return true;
+  const int n = _json.indexOf("{");
+  if (n == -1)
+    {
+      errmsg = tr("quvi returned unexpected data");
+      return false;
+    }
+  return _media.fromJSON(_json.mid(n), errmsg);
 }
 
-// Slot: Icon activated.
-
-void
-MainWindow::onTrayActivated (QSystemTrayIcon::ActivationReason r)
+static void check_window_flags(QWidget *w)
 {
-  switch (r)
+  Qt::WindowFlags flags = w->windowFlags();
+  if (settings.value(nn::KeepApplicationWindowOnTop).toBool())
     {
-    case QSystemTrayIcon::Trigger:
-      showNormal();
-      break;
-    default:
-      break;
+      if (!(flags & Qt::WindowStaysOnTopHint))
+        flags |= Qt::WindowStaysOnTopHint;
+    }
+  else
+    {
+      if (flags & Qt::WindowStaysOnTopHint)
+        flags &= ~Qt::WindowStaysOnTopHint;
+    }
+
+  if (flags != w->windowFlags())
+    {
+      w->setWindowFlags(flags);
+      if (w->isHidden())
+        w->show();
     }
 }
 
-// Slot: Preferences.
-
-void
-MainWindow::onPreferences ()
+static bool check_language(QWidget *w, const QString& lang)
 {
-  const bool icon_state =
-    shPrefs.get (SharedPreferences::CustomProgramIcon).toBool ();
+#ifdef ENABLE_VERBOSE
+  qDebug() << __PRETTY_FUNCTION__ << __LINE__ << "lang="
+           << lang
+           << settings.value(nn::Language).toString();
+#endif
 
-  const QString icon_path =
-    shPrefs.get (SharedPreferences::ProgramIconPath).toString ();
-
-  Preferences dlg (this);
-
-  if (dlg.exec () == QDialog::Accepted)
+  if (lang != settings.value(nn::Language).toString())
     {
-
-      // User requested app restart.
-
-      if (dlg.restartAfter ())
+      if (nn::ask(w, qApp->translate("MainWindow",
+                                     "Language will be changed after "
+                                     "you restart the application. "
+                                     "Restart now?"))
+          == QMessageBox::No)
         {
-          close ();
-          QProcess::startDetached (QCoreApplication::applicationFilePath ());
+          return false;
+        }
+      return true;
+    }
+  return false;
+}
+
+void MainWindow::onSettings()
+{
+  QString lang = settings.value(nn::Language).toString();
+
+  if (lang.isEmpty()) // NSettingsDialog uses "English" instead of ""
+    lang = "English";
+
+  nn::NSettingsDialog *d = new nn::NSettingsDialog(this);
+  if (d->exec() == QDialog::Accepted)
+    {
+      if (check_language(this, lang))
+        {
+          onTerminate();
+          QProcess::startDetached(QCoreApplication::applicationFilePath());
           return;
         }
-
-      Qt::WindowFlags flags = windowFlags ();
-
-      // Update window flags: Stay on top.
-
-      if (shPrefs.get (SharedPreferences::StayOnTop).toBool () )
-        {
-          // Set flag.
-          if (! (flags & Qt::WindowStaysOnTopHint) )
-            flags |= Qt::WindowStaysOnTopHint;
-        }
-      else
-        {
-          // Remove flag.
-          if (flags & Qt::WindowStaysOnTopHint)
-            flags &= ~Qt::WindowStaysOnTopHint;
-        }
-
-      if (flags != windowFlags ())
-        {
-          setWindowFlags (flags);
-          show ();
-        }
-
-      // Update program icon?
-
-      if (icon_state !=
-          shPrefs.get (SharedPreferences::CustomProgramIcon).toBool ()
-          || icon_path !=
-          shPrefs.get (SharedPreferences::ProgramIconPath).toString ())
-        {
-          changeProgramIcon ();
-        }
-
+      check_window_flags(this);
     }
-
 }
 
-// Slot: About.
+#define WWW "http://nomnom.sourceforge.net/"
 
-void
-MainWindow::onAbout ()
+void MainWindow::onAbout()
 {
-  About (this).exec ();
+  nn::NAboutDialog *d = new nn::NAboutDialog(VN, WWW, this);
+  d->exec();
 }
 
-// Slot: Recent.
+#undef WWW
 
-void
-MainWindow::onRecent ()
+void MainWindow::onRecent()
 {
-  const QStringList lst = recent.toStringList ();
-
-  if (lst.size () == 0)
-    {
-      NomNom::info (this, tr ("No record of recently visited URLs found."));
-      return;
-    }
-
-  bool ok = false;
-
-  const QString s = QInputDialog::getItem (
-                      this,
-                      tr ("Recent URLs"),
-                      tr ("Select URL:"),
-                      lst,
-                      0,
-                      false,
-                      &ok
-                    );
-
-  if (!ok)
-    return;
-
-  handleURL (s);
+  nn::NLogDialog *d = new nn::NLogDialog(this);
+  if (d->exec() == QDialog::Accepted)
+    handleURL(d->selected());
 }
 
-// Slot: Log.
-
-void
-MainWindow::onLog ()
-{
-  LogView (this).exec ();
-}
-
-// Slot: Download.
-
-void
-MainWindow::onAddress()
+void MainWindow::onAddress()
 {
   const QString url =
-    QInputDialog::getText (this, tr ("Address"), tr ("Video URL:"));
+    QInputDialog::getText(this,
+                          tr("Address"),
+                          tr("Media page URL:"))
+    .simplified();
 
-  if (url.isEmpty ())
+  if (url.isEmpty())
     return;
 
-  handleURL (url);
+  handleURL(url);
 }
 
-// main.cpp
-extern NomNom::Feed feed;
-
-// Slot: on feed.
-
-void
-MainWindow::onFeed ()
+void MainWindow::onFeed()
 {
-  const QString path =
-    shPrefs.get (SharedPreferences::UmphPath).toString ();
+  const QString p = settings.eitherValue(nn::FeedUsing,
+                                         nn::FeedUsingOther)
+                    .toString()
+                    .simplified();
 
-  if (path.isEmpty ())
+  QStringList args = nn::to_cmd_args(p);
+#ifdef ENABLE_VERBOSE
+  qDebug() << __PRETTY_FUNCTION__ << __LINE__ << "args=" << args;
+#endif
+  const QString r = args.first();
+
+  if (r.isEmpty())
     {
-      NomNom::crit (this,
-                    tr ("Specify path to the umph(1) command in the Preferences."));
+      nn::info(this, tr("Please configure the path to a feed reader. "
+                        "See under the \"commands\" in the settings."));
+      onSettings();
       return;
     }
 
-  QString url;
+  have_umph_feature_all =
+    nn::check_for_cmd_feature(nn::FeedUsing,
+                              nn::FeedUsingOther,
+                              "-a",
+                              0x0);
 
-  if (!feed.empty ())
-    {
-
-      const int rc = NomNom::ask (this, tr ("Choose from old results?"));
-
-      if (rc == QMessageBox::Yes)
-        {
-          if (!NomNom::choose_from_feed (this, url))
-            return;
-        }
-
-    }
-
-  if (url.isEmpty ())
-    {
-
-      YoutubeFeed d (this);
-
-      if (d.exec () != QDialog::Accepted || !d.gotItems ())
-        return;
-
-      if (!NomNom::choose_from_feed (this, url))
-        return;
-
-    }
-
-  handleURL (url);
+  nn::NFeedDialog *d = new nn::NFeedDialog(this, args);
+  if (d->exec() == QDialog::Accepted)
+    handleURL(d->selected());
 }
 
-// Slot: quvi finished.
-
-void
-MainWindow::onProcFinished (QString output )
+void MainWindow::onProcFinished(QString output)
 {
-  json = output;
+  _json = output;
 }
 
-// Event: DragEnter.
-
-void
-MainWindow::dragEnterEvent (QDragEnterEvent *e)
+void MainWindow::dragEnterEvent(QDragEnterEvent *e)
 {
-
   QUrl url(e->mimeData()->text());
-
   if (url.isValid() && url.scheme().toLower() == "http")
     e->acceptProposedAction();
 }
 
-// Event: Drop.
-
-void
-MainWindow::dropEvent (QDropEvent *e)
+void MainWindow::dropEvent(QDropEvent *e)
 {
-  handleURL (e->mimeData ()->text ().simplified ());
-  e->acceptProposedAction ();
+  handleURL(e->mimeData()->text());
+  e->acceptProposedAction();
+}
+
+static void update_show_state(QWidget *w)
+{
+  const bool v = !w->isVisible();
+
+  QAction *a = systray->findTrayMenuAction(
+                 qApp->translate("MainWindow", "Show"));
+
+  if (a)
+    a->setChecked(v);
+
+  w->setVisible(v);
+}
+
+void MainWindow::closeEvent(QCloseEvent *e)
+{
+#ifdef ENABLE_VERBOSE
+  qDebug() << __PRETTY_FUNCTION__ << __LINE__;
+#endif
+
+  if (settings.value(nn::TerminateInstead).toBool()
+      || !systray->isVisible())
+    {
+      if (settings.value(nn::ClearURLRecordAtExit).toBool())
+        recent.clear();
+      save();
+      e->accept();
+    }
+  else
+    {
+      update_show_state(this);
+      e->ignore();
+    }
+}
+
+void MainWindow::activated(QSystemTrayIcon::ActivationReason r)
+{
+  if (r == QSystemTrayIcon::Trigger)
+    update_show_state(this);
+}
+
+void MainWindow::onTerminate()
+{
+  // When systray icon is visible: the default behaviour is to ignore
+  // calls to 'close' mainwindow unless "terminate instead" is true.
+#ifdef ENABLE_VERBOSE
+  qDebug() << __PRETTY_FUNCTION__ << __LINE__;
+#endif
+  // Although the line below uses "settings" value "TerminateInstead",
+  // it is not written to config.
+  settings.setValue(nn::TerminateInstead, true);
+  close();
+}
+
+static void tweak_window_flags(QWidget *w)
+{
+  Qt::WindowFlags flags = w->windowFlags();
+
+// Remove buttons.
+
+  flags &= ~Qt::WindowMinimizeButtonHint;
+  flags &= ~Qt::WindowMaximizeButtonHint;
+
+// Stay on top?
+
+  if (settings.value(nn::KeepApplicationWindowOnTop).toBool())
+    flags |= Qt::WindowStaysOnTopHint;
+
+  w->setWindowFlags(flags);
+}
+
+void MainWindow::restore()
+{
+  QSettings s;
+  s.beginGroup(QSETTINGS_GROUP);
+  modeCBox->setCurrentIndex(s.value("modeCBox").toInt());
+  restoreGeometry(s.value("geometry").toByteArray());
+  restoreState(s.value("state").toByteArray());
+  s.endGroup();
+
+  tweak_window_flags(this);
+  createContextMenu();
+  createTrayIcon();
+}
+
+void MainWindow::save()
+{
+  QSettings s;
+  s.beginGroup(QSETTINGS_GROUP);
+  s.setValue("modeCBox", modeCBox->currentIndex());
+  s.setValue("geometry", saveGeometry());
+  s.setValue("state", saveState());
+  s.endGroup();
+  recent.write();
 }
 
 // vim: set ts=2 sw=2 tw=72 expandtab:

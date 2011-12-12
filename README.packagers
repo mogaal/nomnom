@@ -1,0 +1,43 @@
+
+PACKAGERS
+=========
+
+Prerequisites
+-------------
+
+See the INSTALL file.
+
+
+System-wide configuration file
+------------------------------
+
+If you choose to install NomNom with a system-wide configuration file,
+please keep in mind that the users may override the values in the settings
+at any time.
+
+Refer to the Qt documentation (look up QSettings) for the typical search
+paths as they tend to vary on how Qt was configured. For example, on a
+typical Unix-like systems these may be:
+
+  /etc/xdg/NomNom/NomNom.conf
+  /etc/xdg/NomNom.conf
+  /etc/NomNom.conf
+
+Example: Force the application to use command "/foo/bar" instead of
+         default "quvi"
+
+  [Settings]
+  ParseUsing=other^
+  ParseUsingOther=/foo/bar^-f -b %u
+
+You can tell the application to use a custom command by setting (in
+this case) "ParseUsing" to "other^" and then add the "ParseUsingOther"
+variable that defines the (path) to the custom command with the args.
+Make also a note of the "^" that separates the command and the args.
+
+For other supported Settings variables, see:
+  $top_srcdir/src/settings/nsettings.cpp
+
+Or, alternatively, you could use your own local config file as a
+template config file. To find the path to the file, run:
+  nomnom --config-path
