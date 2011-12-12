@@ -9,7 +9,7 @@ Vcs-Git: git://github.com/mogaal/nomnom
 
 Package: nomnom
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, quvi, curl
 Description: download videos from Youtube and other similar video websites
  application for downloading videos from Youtube and other similar
  video websites that require Adobe Flash to view the video content. Video
