@@ -1,0 +1,6 @@
+<RCC>
+  <qresource>
+    <file>img/nomnom.png</file>
+    <file>text/COPYING</file>
+  </qresource>
+</RCC>

@@ -1,294 +1,1388 @@
-commit d6a7defdf7e9104f02212fe47c83e6064ad17c3c
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Mon Feb 7 22:35:15 2011 +0200
+commit 7ae1c42
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-06
 
-    Set release details for 0.1.2
+    Update NEWS for 0.3.1
 
- NEWS |    8 ++++++++
- 1 files changed, 8 insertions(+), 0 deletions(-)
+NEWS
 
-commit 54a9cee4eb74a7b602d6dd1bb4d64a660f729790
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Tue Jan 25 10:43:00 2011 +0200
+commit 17d7ec1
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-06
 
-    Update translation
+    Bump version to 0.3.1
 
- tr/nomnom_fi.ts |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+m4/version.m4
 
-commit 7e3246879218a4319d6a76ee63f3c0cbd4b50115
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Tue Jan 25 10:10:55 2011 +0200
-
-    Fix: Retain umph returned item order
-
- src/i/MainWindow.cpp  |    2 +-
- src/i/YoutubeFeed.cpp |    6 +++---
- src/main.cpp          |    2 +-
- src/util.cpp          |   26 +++++++++++++++++---------
- src/util.h            |    8 ++++----
- 5 files changed, 26 insertions(+), 18 deletions(-)
-
-commit c50bd4c6b7240b21a494b98592905ecd318ad1ee
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Sun Jan 16 11:19:04 2011 +0200
-
-    CMakeLists.txt: Re-arrange summary items
-
- CMakeLists.txt |    8 ++++----
- 1 files changed, 4 insertions(+), 4 deletions(-)
-
-commit 7ed7a28c12e23bd8e575ac91999840ef914719c1
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Mon Jan 10 10:38:59 2011 +0200
-
-    Update nomnom_fi.ts to match style changes
-
- tr/nomnom_fi.ts |  108 +++++++++++++++++++++++++++---------------------------
- 1 files changed, 54 insertions(+), 54 deletions(-)
-
-commit 219001de973ef4864dc38daa62ab458e393495b6
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Mon Jan 10 10:37:20 2011 +0200
-
-    Apply style changes
-
- src/DownloadDiag.cpp  |  165 ++++++------
- src/DownloadDiag.h    |   32 +-
- src/Log.cpp           |   37 ++-
- src/Log.h             |   20 +-
- src/ProcProgDiag.cpp  |  135 +++++----
- src/ProcProgDiag.h    |   44 ++--
- src/Recent.cpp        |   46 ++--
- src/Recent.h          |   30 +-
- src/Video.cpp         |  182 +++++++-----
- src/Video.h           |   55 ++--
- src/i/About.cpp       |   96 ++++---
- src/i/About.h         |   18 +-
- src/i/LogView.cpp     |   39 ++--
- src/i/LogView.h       |   22 +-
- src/i/MainWindow.cpp  |  748 ++++++++++++++++++++++++++-----------------------
- src/i/MainWindow.h    |   72 +++---
- src/i/Preferences.cpp |  734 ++++++++++++++++++++++++++----------------------
- src/i/Preferences.h   |  128 +++++----
- src/i/Reminder.cpp    |   68 +++--
- src/i/Reminder.h      |   32 +-
- src/i/YoutubeFeed.cpp |  182 +++++++------
- src/i/YoutubeFeed.h   |   32 +-
- src/main.cpp          |   61 ++--
- src/tips.cpp          |  161 ++++++------
- src/tips.h            |    8 +-
- src/util.cpp          |  553 +++++++++++++++++++-----------------
- src/util.h            |   50 ++--
- 27 files changed, 1993 insertions(+), 1757 deletions(-)
-
-commit 4e80fd03958c7533411dc523b20e0672d79080dc
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Mon Jan 10 10:27:02 2011 +0200
-
-    Add scripts/astyle_cpp.sh
-
- scripts/astyle_cpp.sh |    6 ++++++
- 1 files changed, 6 insertions(+), 0 deletions(-)
-
-commit d17c498b21609e98cfdc611f396b91427a5c1f5e
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Sat Jan 8 00:16:22 2011 +0200
-
-    Add gitignore file
-
- .gitignore |    6 ++++++
- 1 files changed, 6 insertions(+), 0 deletions(-)
-
-commit 15c248d2730fc276dc47754bf8b2d080d0662a2b
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Sat Jan 8 00:15:50 2011 +0200
-
-    Add vim modelines
-
- src/DownloadDiag.cpp  |    1 +
- src/DownloadDiag.h    |    1 +
- src/Log.cpp           |    1 +
- src/Log.h             |    1 +
- src/ProcProgDiag.cpp  |    1 +
- src/ProcProgDiag.h    |    1 +
- src/Recent.cpp        |    1 +
- src/Recent.h          |    1 +
- src/Video.cpp         |    1 +
- src/Video.h           |    1 +
- src/i/About.cpp       |    1 +
- src/i/About.h         |    1 +
- src/i/LogView.cpp     |    1 +
- src/i/LogView.h       |    1 +
- src/i/MainWindow.cpp  |    1 +
- src/i/MainWindow.h    |    1 +
- src/i/Preferences.cpp |    1 +
- src/i/Preferences.h   |    1 +
- src/i/Reminder.cpp    |    1 +
- src/i/Reminder.h      |    1 +
- src/i/YoutubeFeed.cpp |    1 +
- src/i/YoutubeFeed.h   |    1 +
- src/main.cpp          |    1 +
- src/tips.cpp          |    1 +
- src/tips.h            |    1 +
- src/util.cpp          |    1 +
- src/util.h            |    1 +
- 27 files changed, 27 insertions(+), 0 deletions(-)
-
-commit a9b12fcf604ded580442fed1e213dc3c11eb8875
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Fri Jan 7 12:59:05 2011 +0200
-
-    makedist.sh: Rename project
-
- scripts/makedist.sh |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-commit 22d00638911ff49e8f04ff464715b90280638805
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Fri Jan 7 12:58:24 2011 +0200
-
-    Add stub ChangeLog
-
- 0 files changed, 0 insertions(+), 0 deletions(-)
-
-commit bd094ce2fc57aa796a2f9f925a87f66d2a5e7eb0
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Fri Jan 7 12:57:23 2011 +0200
-
-    Add makedist.sh
-
- scripts/makedist.sh |   30 ++++++++++++++++++++++++++++++
- 1 files changed, 30 insertions(+), 0 deletions(-)
-
-commit ccc8a10284b9e17a9979cc10601fd1b726843479
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Fri Jan 7 12:56:51 2011 +0200
-
-    CMakeLists.txt: Remove "dist" target
-
- CMakeLists.txt |    8 --------
- 1 files changed, 0 insertions(+), 8 deletions(-)
-
-commit 648c60101119ac14bfc5efe0ad7c3199832f009b
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Fri Jan 7 12:53:51 2011 +0200
-
-    SystemTray: Change to use single-click activation
-
- src/i/MainWindow.cpp |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-commit d127bcfb0941d74f9f30f062d963e76d6883551c
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Fri Jan 7 12:50:32 2011 +0200
-
-    CMakeLists.txt: Tweak status summary
-
- CMakeLists.txt |   14 +++++++-------
- 1 files changed, 7 insertions(+), 7 deletions(-)
-
-commit ec2fcf28638e4544fb809f9fbc437ae6f75782cc
-Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Fri Jan 7 12:49:09 2011 +0200
+commit 41e1a39
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-06
 
     Update Finnish translation
 
- tr/nomnom_fi.ts |  117 ++++++++++++++++++++++++++++++++++---------------------
- 1 files changed, 72 insertions(+), 45 deletions(-)
+tr/NomNom_fi_FI.ts
 
-commit 70bec6391a4a6ed96a5e634a26a6ce963586a944
+commit 7ee1b92
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-03
+
+    Improve handling of user URL input
+    
+     * Use QUrl::fromUserInput
+     * Validate URLs
+
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+
+commit 34321f5
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-03
+
+    Add "Always get the best media format"
+
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/settings/nsettings.cpp
+src/settings/nsettings.h
+src/settings/nsettingsdialog.h
+src/settings/nsettingsdialog_options_behaviour.cpp
+
+commit a831f1c
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-31
+
+    Add "copy to clipboard" to NLogDialog
+
+src/log/nlogdialog.cpp
+src/log/nlogdialog.h
+src/log/nlogdialog_recent.cpp
+
+commit 11e64fd
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-31
+
+    NLogRecent: Move Reset button to NLogDialog button box
+
+src/log/nlogdialog.cpp
+src/log/nlogdialog.h
+src/log/nlogdialog_recent.cpp
+
+commit 4b171a7
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-30
+
+    Update NEWS for 0.3.0
+
+NEWS
+
+commit 629d5c2
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-30
+
+    Bump version to 0.3.0
+
+m4/version.m4
+
+commit 81cae56
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-30
+
+    Update Finnish translation
+
+tr/NomNom_fi_FI.ts
+
+commit ac14a94
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-30
+
+    Fix umph integration
+    
+      * umph returned "nothing found" even with feeds with items
+      * Make nn::to_cmd_args use QString::SkipEmptyParts
+
+src/i/MainWindow.cpp
+src/util/nutil.cpp
+
+commit b870a82
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-30
+
+    Revise README.packagers
+
+README.packagers
+
+commit de75537
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-28
+
+    Add size grips to NFeedDialog, NSettingsDialog
+
+src/feed/nfeeddialog.cpp
+src/settings/nsettingsdialog.cpp
+
+commit 663dd37
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-28
+
+    Recent: resize to "Title" column contents
+    
+     * Add size grip to dialog
+
+src/log/nlogdialog.cpp
+src/log/nlogdialog_recent.cpp
+
+commit da248b9
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-28
+
+    Bump max recent URLs to 25
+
+src/i/MainWindow.cpp
+
+commit 9fdd096
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-27
+
+    Add Qt module note to INSTALL
+
+INSTALL
+
+commit c98e0b6
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-27
+
+    Use NUtil 'info' and 'ask' instead
+
+src/log/nlogdialog.cpp
+src/log/nlogdialog.h
+src/log/nlogdialog_recent.cpp
+
+commit fb3dd47
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-27
+
+    Use NLogDialog instead
+    
+     * Replace old "recent URL" subsystem
+     * Remove "using namespace nn"
+     * Add prerequisite for QJson
+     * Cleanup misc. comments
+
+src/Makefile.am
+src/NLogDialog
+src/NRecentEntry
+src/NRecentMutator
+src/Recent.cpp
+src/Recent.h
+src/i/MainWindow.cpp
+src/log/nlogdialog.cpp
+src/log/nlogdialog.h
+src/log/nlogdialog_recent.cpp
+src/log/nrecententry.cpp
+src/log/nrecententry.h
+src/log/nrecentmutator.cpp
+src/log/nrecentmutator.h
+src/main.cpp
+
+commit 2b92801
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-27
+
+    Add "Copy" button to NErrorWhileDialog
+    
+     * Make copying to clipboard easy
+
+src/errorwhile/nerrorwhiledialog.cpp
+src/errorwhile/nerrorwhiledialog.h
+
+commit d7ab7b3
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-27
+
+    Remove QtScript prerequisite
+    
+     * QJson replaces QtScript
+
+configure.ac
+src/Makefile.am
+
+commit 20baade
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-27
+
+    Use QJson for parsing umph output
+
+src/feed/nfeedprogressdialog.cpp
+
+commit a81db9b
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-27
+
+    Use QJson for parsing quvi output
+    
+     * Revise Media class
+
+src/Makefile.am
+src/Media.cpp
+src/Media.h
+
+commit 6723f66
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-27
+
+    Use "_" prefix with MainWindow member vars
+
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+
+commit e60d055
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-27
+
+    Add QJson prerequisite
+
+INSTALL
+configure.ac
+src/Makefile.am
+
+commit 49ae0c9
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-27
+
+    Use qApp instead, use NUtil info() instead
+
+src/feed/nfeeddialog.cpp
+src/feed/nfeeddialog.h
+src/feed/nfeeddialog_properties.cpp
+src/lang/nlang.cpp
+src/settings/nsettingsdialog.cpp
+src/settings/nsettingsdialog.h
+src/settings/nsettingsdialog_options.cpp
+src/util/nutil.cpp
+
+commit d89b9cb
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-23
+
+    Use NErrorWhileDialog instead
+
+src/DownloadDiag.cpp
+src/DownloadDiag.h
+src/Makefile.am
+src/NErrorWhileDialog
+src/ProcProgDiag.cpp
+src/ProcProgDiag.h
+src/errorwhile/nerrorwhiledialog.cpp
+src/errorwhile/nerrorwhiledialog.h
+src/feed/nfeeddialog.cpp
+src/feed/nfeedprogressdialog.cpp
+src/feed/nfeedprogressdialog.h
+src/i/MainWindow.cpp
+
+commit 1f2afdc
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-22
+
+    qDebug media player args
+
+src/i/MainWindow.cpp
+
+commit c808a1a
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-22
+
+    Revise manual
+    
+     * Add user-agent to "known issues"
+
+doc/man1/nomnom.1.pod
+
+commit e274497
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-22
+
+    Add user-agent to curl args
+    
+    Use the same (default) user-agent string with quvi(1) and curl(1). Some
+    websites refuse to work with renegade strings.
+
+src/detect/ndetect.cpp
+src/settings/nsettingsdialog_commands.cpp
+
+commit 587399e
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-21
+
+    Use VN instead of (PACKAGE_)VERSION
+
+src/i/MainWindow.cpp
+src/main.cpp
+
+commit 366924d
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-21
+
+    Remove outdated examples/NomNom.conf
+
+Makefile.am
+examples/NomNom.conf
+
+commit d9050e2
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-21
+
+    Update NEWS for 0.2.0
+
+NEWS
+
+commit 2e7eafc
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-19
+
+    Add --locale to manual
+
+doc/man1/nomnom.1.pod
+
+commit 593e443
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-19
+
+    Bump version to 0.2.0
+
+m4/version.m4
+
+commit 18585cf
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-19
+
+    Update Finnish translation
+    
+     * Use nn::NFeedProperties context for "start index" and
+       "max. results" tooltips
+
+src/feed/nfeeddialog_properties.cpp
+tr/NomNom_fi_FI.ts
+
+commit ec81c26
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-19
+
+    Change lrelease options
+
+tr/Makefile.am
+
+commit 0ad6092
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-19
+
+    Use qApp->translate, QT_TR_NOOP instead
+    
+     * Fix (transl.) tooltip string construction for "Other" fields
+     * Replace QObject::tr with qApp->translate calls
+
+src/DownloadDiag.cpp
+src/detect/ndetect.cpp
+src/i/MainWindow.cpp
+src/lang/nlang.cpp
+src/settings/nsettingsdialog_commands.cpp
+src/settings/nsettingsdialog_download.cpp
+src/settings/nsettingsdialog_options_appearance.cpp
+
+commit a4fab83
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-19
+
+    Add accelerator note to HowtoTranslate.txt
+
+doc/HowtoTranslate.txt
+
+commit 8d39a74
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-19
+
+    Add --locale option
+
+src/main.cpp
+
+commit 14a98bd
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-18
+
+    Revise README.packagers
+
+README.packagers
+
+commit eb79a0b
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-18
+
+    Revise INSTALL
+
+INSTALL
+
+commit 2e88067
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-18
+
+    Revise README
+
+README
+
+commit d2271c2
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-18
+
+    Revise manual
+
+doc/man1/nomnom.1.pod
+
+commit 06d0b42
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-18
+
+    Add StartupNotify to .desktop file
+
+nomnom.desktop.in
+
+commit f941c92
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-18
+
+    Revise .desktop file
+
+nomnom.desktop.in
+
+commit a891036
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-18
+
+    Add email
+
+src/DownloadDiag.cpp
+src/DownloadDiag.h
+src/Media.cpp
+src/Media.h
+src/ProcProgDiag.cpp
+src/ProcProgDiag.h
+src/Recent.cpp
+src/Recent.h
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/main.cpp
+
+commit 1ad2eb9
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-18
+
+    Add basic command line support
+    
+     * Support for --config-path, --detect, --verbose, --help
+     * Add --enable-verbose to configure
+    
+    "--config-path" prints the path to the local users's config file.
+    "--detect" prints the detected commands from $PATH.
+    "--verbose" turns on verbose program output (to stderr).
+    
+    Program option "--verbose" is disabled by default and can be enabled at
+    compile time with "--enable-verbose". This allows us to exclude
+    otherwise unnecessary inclusions of QDebug header and  calls to qDebug
+    and its friends.
+
+configure.ac
+src/DownloadDiag.cpp
+src/Media.cpp
+src/ProcProgDiag.cpp
+src/Recent.cpp
+src/about/naboutdialog.cpp
+src/detect/ndetect.cpp
+src/detect/ndetectdialog.cpp
+src/feed/nfeed.cpp
+src/feed/nfeeddialog.cpp
+src/feed/nfeeddialog_items.cpp
+src/feed/nfeeddialog_properties.cpp
+src/feed/nfeedprogressdialog.cpp
+src/i/MainWindow.cpp
+src/lang/nlang.cpp
+src/main.cpp
+src/settings/nsettings.cpp
+src/settings/nsettingsdialog.cpp
+src/settings/nsettingsdialog_commands.cpp
+src/settings/nsettingsdialog_download.cpp
+src/settings/nsettingsdialog_options.cpp
+src/settings/nsettingsdialog_options_appearance.cpp
+src/settings/nsettingsdialog_options_behaviour.cpp
+src/settings/nsettingsdialog_options_systray.cpp
+src/settings/nsettingsdialog_proxy.cpp
+src/settings/nsettingsmutator.cpp
+src/systray/nsystray.cpp
+src/util/nutil.cpp
+src/widgets/ntripwireedit.cpp
+
+commit 4cd4e24
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-04
+
+    Replace Preferences with NSettingsDialog
+    
+     * Use restoreGeometry and restoreState instead
+     * Add NUtil, remove src/util.*
+     * Integrate with NDetect
+     * Integrate with NLang
+     * Use NSysTray instead
+
+configure.ac
+doc/HowtoTranslate.txt
+src/DownloadDiag.cpp
+src/DownloadDiag.h
+src/Makefile.am
+src/Media.cpp
+src/Media.h
+src/NDetect
+src/NDetectDialog
+src/NSettings
+src/NSettingsDialog
+src/NSettingsMutator
+src/NSysTray
+src/NTripwireEdit
+src/NUtil
+src/ProcProgDiag.cpp
+src/ProcProgDiag.h
+src/Recent.cpp
+src/Recent.h
+src/detect/ndetect.cpp
+src/detect/ndetect.h
+src/detect/ndetectdialog.cpp
+src/detect/ndetectdialog.h
+src/feed/nfeed.cpp
+src/feed/nfeed.h
+src/feed/nfeeddialog.cpp
+src/feed/nfeeddialog.h
+src/feed/nfeeddialog_properties.cpp
+src/feed/nfeedprogressdialog.cpp
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/i/Preferences.cpp
+src/i/Preferences.h
+src/main.cpp
+src/rc/MainWindow.ui
+src/rc/Preferences.ui
+src/settings/nsettings.cpp
+src/settings/nsettings.h
+src/settings/nsettingsdialog.cpp
+src/settings/nsettingsdialog.h
+src/settings/nsettingsdialog_commands.cpp
+src/settings/nsettingsdialog_download.cpp
+src/settings/nsettingsdialog_options.cpp
+src/settings/nsettingsdialog_options_appearance.cpp
+src/settings/nsettingsdialog_options_behaviour.cpp
+src/settings/nsettingsdialog_options_systray.cpp
+src/settings/nsettingsdialog_proxy.cpp
+src/settings/nsettingsmutator.cpp
+src/settings/nsettingsmutator.h
+src/systray/nsystray.cpp
+src/systray/nsystray.h
+src/util.cpp
+src/util.h
+src/util/nutil.cpp
+src/util/nutil.h
+src/widgets/ntripwireedit.cpp
+src/widgets/ntripwireedit.h
+
+commit 309ae84
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-12
+
+    Rename NFeedInfo -> NFeedProperties
+
+src/Makefile.am
+src/feed/nfeeddialog.cpp
+src/feed/nfeeddialog.h
+src/feed/nfeeddialog_info.cpp
+src/feed/nfeeddialog_properties.cpp
+
+commit 7b17446
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-12
+
+    Use umph returned output as error message
+    
+     * If "error:" was not matched
+
+src/feed/nfeedprogressdialog.cpp
+
+commit 04cd7a4
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-12
+
+    Prompt for parsing a feed if the list is empty
+
+src/feed/nfeeddialog.cpp
+
+commit 49cc661
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-11
+
+    Use QProcess::errorString instead
+
+src/feed/nfeedprogressdialog.cpp
+src/feed/nfeedprogressdialog.h
+
+commit a54a487
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-04
+
+    Use "media" instead of "video"
+
+README
+doc/man1/nomnom.1.pod
+nomnom.desktop.in
+src/DownloadDiag.cpp
+src/DownloadDiag.h
+src/Makefile.am
+src/Media.cpp
+src/Media.h
+src/Video.cpp
+src/Video.h
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/rc/Preferences.ui
+
+commit 723ab50
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-04
+
+    Improve quvi error handling
+
+src/ProcProgDiag.cpp
+src/ProcProgDiag.h
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+
+commit 77b75fd
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-04
+
+    Remove "Overwrite" from context menu
+
+src/i/MainWindow.cpp
+
+commit dd29320
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-29
+
+    Cleanup util.h
+
+src/util.h
+
+commit 8281b8d
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-29
+
+    Remove quvi --support integration
+
+src/i/MainWindow.cpp
+src/main.cpp
+src/util.cpp
+
+commit 89d8b31
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-29
+
+    Fix Preferences default tab
+
+src/rc/Preferences.ui
+
+commit 815b56d
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-29
+
+    Remove tips (Reminder) subsystem
+
+src/Makefile.am
+src/i/MainWindow.cpp
+src/i/Preferences.cpp
+src/i/Preferences.h
+src/i/Reminder.cpp
+src/i/Reminder.h
+src/main.cpp
+src/rc/Preferences.ui
+src/rc/Reminder.ui
+src/tips.cpp
+src/tips.h
+
+commit 4a2d280
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-29
+
+    Revise HowtoTranslate, add gen-tr.sh
+
+Makefile.am
+doc/HowtoTranslate.txt
+gen-tr.sh
+
+commit 5daa29e
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-29
+
+    Revise translation subsystem
+    
+     * Support system locale
+
+src/Makefile.am
+src/NLang
+src/i/MainWindow.cpp
+src/i/Preferences.cpp
+src/lang/nlang.cpp
+src/lang/nlang.h
+src/main.cpp
+src/util.cpp
+src/util.h
+tr/Makefile.am
+tr/NomNom_de_DE.ts
+tr/NomNom_fi_FI.ts
+tr/nomnom_de.ts
+tr/nomnom_fi.ts
+
+commit e6f9ad9
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-29
+
+    Remove log subsystem
+
+src/DownloadDiag.cpp
+src/Log.cpp
+src/Log.h
+src/Makefile.am
+src/ProcProgDiag.cpp
+src/i/LogView.cpp
+src/i/LogView.h
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/main.cpp
+src/rc/LogView.ui
+src/util.cpp
+
+commit ebd7944
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-27
+
+    Revise YouTube feed integration
+    
+     * Add support for umph --all
+     * New dialog
+
+examples/NomNom.conf
+src/Makefile.am
+src/NFeed
+src/NFeedDialog
+src/NFeedProgressDialog
+src/feed/nfeed.cpp
+src/feed/nfeed.h
+src/feed/nfeeddialog.cpp
+src/feed/nfeeddialog.h
+src/feed/nfeeddialog_info.cpp
+src/feed/nfeeddialog_items.cpp
+src/feed/nfeedprogressdialog.cpp
+src/feed/nfeedprogressdialog.h
+src/i/MainWindow.cpp
+src/i/Preferences.cpp
+src/i/YoutubeFeed.cpp
+src/i/YoutubeFeed.h
+src/main.cpp
+src/rc/YoutubeFeed.ui
+src/util.cpp
+src/util.h
+
+commit f1305bc
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-29
+
+    Align lines
+
+src/about/naboutdialog.cpp
+
+commit a8e988c
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-28
+
+    Revise about dialog
+
+src/Makefile.am
+src/NAboutDialog
+src/about/naboutdialog.cpp
+src/about/naboutdialog.h
+src/i/About.cpp
+src/i/About.h
+src/i/MainWindow.cpp
+src/rc/About.ui
+src/rc/nomnom.qrc
+src/rc/text/COPYING
+
+commit cc2ec6c
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-27
+
+    Revise manual
+
+doc/man1/nomnom.1.pod
+
+commit 7186134
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-21
+
+    Use GNU Autotools instead of CMake
+
+.gitignore
+CMakeLists.txt
+ChangeLog
+INSTALL
+Makefile.am
+README
+README.packagers
+autogen.sh
+config.h.cmake.in
+configure.ac
+doc/CMakeLists.txt
+doc/HowtoTranslate
+doc/HowtoTranslate.txt
+doc/Makefile.am
+doc/man1/Makefile.am
+doc/man1/nomnom.1.pod
+examples/NomNom.conf
+gen-ver.sh
+i/About.ui
+i/LogView.ui
+i/MainWindow.ui
+i/Preferences.ui
+i/Reminder.ui
+i/YoutubeFeed.ui
+m4/version.m4
+makedist.sh
+man1/CMakeLists.txt
+man1/nomnom.1
+man1/nomnom.1.pod
+nomnom.desktop.in
+nomnom.xpm
+rc/img/README
+rc/img/nomnom.png
+rc/img/nomnom.xpm
+rc/nomnom.qrc
+src/Makefile.am
+src/i/About.cpp
+src/main.cpp
+src/rc/About.ui
+src/rc/LogView.ui
+src/rc/MainWindow.ui
+src/rc/Preferences.ui
+src/rc/Reminder.ui
+src/rc/YoutubeFeed.ui
+src/rc/img/README
+src/rc/img/nomnom.png
+src/rc/nomnom.qrc
+src/util.cpp
+tr/Makefile.am
+uninstall.cmake.in
+
+commit 8d6a144
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-22
+
+    Add --category-http to default quvi value
+
+src/i/Preferences.cpp
+
+commit 03834f8
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-21
+
+    Revise parse_quvi_version
+
+src/util.cpp
+
+commit b2dfa51
 Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Thu Dec 9 23:53:03 2010 +0200
+Date:   2011-08-31
+
+    Impl. support for quvi's --query-formats
+    
+    When --query-formats is available (quvi 0.2.16.1+), use it to query the
+    available formats to an URL.
+
+src/ProcProgDiag.cpp
+src/ProcProgDiag.h
+src/i/About.cpp
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/main.cpp
+src/util.cpp
+src/util.h
+
+commit 68ded6e
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-21
+
+    Revise makedist.sh
+    
+     * Move to top source dir
+     * Remove astyle_cpp.sh
+     * Generate manual
+
+makedist.sh
+scripts/astyle_cpp.sh
+scripts/makedist.sh
+
+commit a703f69
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-02
+
+    #7: fix undefined value for "regexp"
+
+src/i/Preferences.cpp
+src/i/Preferences.h
+
+commit eeaefa9
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-06-18
+
+    Set release details for 0.1.4
+
+NEWS
+
+commit d84b154
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-06-18
+
+    nomnom_de.ts: Add missing translations
+
+tr/nomnom_de.ts
+
+commit 8885d0d
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-06-18
+
+    Bump version to 0.1.4
+
+CMakeLists.txt
+
+commit feaddc8
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-06-05
+
+    Update Finnish translation
+
+tr/nomnom_fi.ts
+
+commit c8e95e0
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-06-05
+
+    Add "Enter format" to format selection
+
+src/i/MainWindow.cpp
+
+commit 44078ce
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-06-05
+
+    Update .gitignore
+
+.gitignore
+
+commit 39a1d72
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-05-17
+
+    Update German translation (#5)
+
+tr/nomnom_de.ts
+
+commit c5fb8a2
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-05-12
+
+    Add German translation (#5)
+
+tr/nomnom_de.ts
+
+commit 52b72e9
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-05-12
+
+    HowtoTranslate: Rename "Other" -> "Options"
+
+doc/HowtoTranslate
+
+commit 556687a
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-05-03
+
+    Set release details for 0.1.3
+
+NEWS
+
+commit e148f41
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-05-03
+
+    Update Finnish translation (Preferences ln ch)
+
+tr/nomnom_fi.ts
+
+commit 1c25d80
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-05-03
+
+    Preferences: Add vertical spacer
+
+i/Preferences.ui
+
+commit 4a7e5f1
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-04-14
+
+    Update Finnish translation
+
+tr/nomnom_fi.ts
+
+commit c3e6d2b
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-04-14
+
+    Recent: Reverse order to "most recent first"
+
+src/Recent.cpp
+src/i/MainWindow.cpp
+
+commit 1d45db7
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-04-13
+
+    Reverse line order in Log(View)
+
+src/i/LogView.cpp
+src/util.cpp
+src/util.h
+
+commit 791725b
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-04-12
+
+    Add manual (#4) and pod2man target
+
+CMakeLists.txt
+man1/CMakeLists.txt
+man1/nomnom.1
+man1/nomnom.1.pod
+
+commit 15a9fa7
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-04-12
+
+    INSTALL: Fix sentence
+
+INSTALL
+
+commit dd1fc40
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-04-11
+
+    Install xpm to share/pixmaps/ (#3)
+
+CMakeLists.txt
+nomnom.desktop.in
+rc/img/nomnom.xpm
+
+commit 0a6d334
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-04-11
+
+    nomnom.desktop: Remove depr. "Encoding" key (#2)
+
+nomnom.desktop.in
+
+commit f13e174
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-02-18
+
+    Bump version 0.1.3
+
+CMakeLists.txt
+
+commit d9e22d9
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-02-18
+
+    INSTALL: Add quvi 0.2.12+ --category-http example
+
+INSTALL
+
+commit d6a7def
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-02-07
+
+    Set release details for 0.1.2
+
+NEWS
+
+commit 54a9cee
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-25
+
+    Update translation
+
+tr/nomnom_fi.ts
+
+commit 7e32468
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-25
+
+    Fix: Retain umph returned item order
+
+src/i/MainWindow.cpp
+src/i/YoutubeFeed.cpp
+src/main.cpp
+src/util.cpp
+src/util.h
+
+commit c50bd4c
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-16
+
+    CMakeLists.txt: Re-arrange summary items
+
+CMakeLists.txt
+
+commit 7ed7a28
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-10
+
+    Update nomnom_fi.ts to match style changes
+
+tr/nomnom_fi.ts
+
+commit 219001d
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-10
+
+    Apply style changes
+
+src/DownloadDiag.cpp
+src/DownloadDiag.h
+src/Log.cpp
+src/Log.h
+src/ProcProgDiag.cpp
+src/ProcProgDiag.h
+src/Recent.cpp
+src/Recent.h
+src/Video.cpp
+src/Video.h
+src/i/About.cpp
+src/i/About.h
+src/i/LogView.cpp
+src/i/LogView.h
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/i/Preferences.cpp
+src/i/Preferences.h
+src/i/Reminder.cpp
+src/i/Reminder.h
+src/i/YoutubeFeed.cpp
+src/i/YoutubeFeed.h
+src/main.cpp
+src/tips.cpp
+src/tips.h
+src/util.cpp
+src/util.h
+
+commit 4e80fd0
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-10
+
+    Add scripts/astyle_cpp.sh
+
+scripts/astyle_cpp.sh
+
+commit d17c498
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-08
+
+    Add gitignore file
+
+.gitignore
+
+commit 15c248d
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-08
+
+    Add vim modelines
+
+src/DownloadDiag.cpp
+src/DownloadDiag.h
+src/Log.cpp
+src/Log.h
+src/ProcProgDiag.cpp
+src/ProcProgDiag.h
+src/Recent.cpp
+src/Recent.h
+src/Video.cpp
+src/Video.h
+src/i/About.cpp
+src/i/About.h
+src/i/LogView.cpp
+src/i/LogView.h
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/i/Preferences.cpp
+src/i/Preferences.h
+src/i/Reminder.cpp
+src/i/Reminder.h
+src/i/YoutubeFeed.cpp
+src/i/YoutubeFeed.h
+src/main.cpp
+src/tips.cpp
+src/tips.h
+src/util.cpp
+src/util.h
+
+commit a9b12fc
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-07
+
+    makedist.sh: Rename project
+
+scripts/makedist.sh
+
+commit 22d0063
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-07
+
+    Add stub ChangeLog
+
+ChangeLog
+
+commit bd094ce
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-07
+
+    Add makedist.sh
+
+scripts/makedist.sh
+
+commit ccc8a10
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-07
+
+    CMakeLists.txt: Remove "dist" target
+
+CMakeLists.txt
+
+commit 648c601
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-07
+
+    SystemTray: Change to use single-click activation
+
+src/i/MainWindow.cpp
+
+commit d127bcf
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-07
+
+    CMakeLists.txt: Tweak status summary
+
+CMakeLists.txt
+
+commit ec2fcf2
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2011-01-07
+
+    Update Finnish translation
+
+tr/nomnom_fi.ts
+
+commit 70bec63
+Author: Toni Gundogdu <legatvs.git@gmail.com>
+Date:   2010-12-09
 
     Tips: Add custom program icon
 
- src/tips.cpp |    4 ++++
- 1 files changed, 4 insertions(+), 0 deletions(-)
+src/tips.cpp
 
-commit 5ce3f88cb18ffbac3db7157cdb994694aed42da3
+commit 5ce3f88
 Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Thu Dec 9 23:49:54 2010 +0200
+Date:   2010-12-09
 
     Add custom program icon support
     
     Allow use of a custom program icon instead of the default one.
 
- i/Preferences.ui      |   84 +++++++++++++++++++++++++++++++++++++++++++++++++
- src/i/MainWindow.cpp  |   53 +++++++++++++++++++++++++++++--
- src/i/MainWindow.h    |    1 +
- src/i/Preferences.cpp |   64 ++++++++++++++++++++++++++++++++++++-
- src/i/Preferences.h   |   20 +++++++----
- 5 files changed, 210 insertions(+), 12 deletions(-)
+i/Preferences.ui
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/i/Preferences.cpp
+src/i/Preferences.h
 
-commit 64283cd6e2b47086de36f8ca8a0dea142fdf6bc7
+commit 64283cd
 Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Sat Dec 4 19:02:34 2010 +0200
+Date:   2010-12-04
 
     Bump version to 0.1.2
 
- CMakeLists.txt |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+CMakeLists.txt
 
-commit 624231b49010d34606691f7f93c2c1643bb7bb29
+commit 624231b
 Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Sat Dec 4 18:55:51 2010 +0200
+Date:   2010-12-04
 
     Set 0.1.1 release date
 
- NEWS |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+NEWS
 
-commit e3c5fd6219ffe7ed68a9390f8f9272530b68f573
+commit e3c5fd6
 Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Sat Dec 4 18:55:04 2010 +0200
+Date:   2010-12-04
 
     Add custom target "dist"
 
- CMakeLists.txt |    8 ++++++++
- 1 files changed, 8 insertions(+), 0 deletions(-)
+CMakeLists.txt
 
-commit cb7cc6806f1afa188ae14a4c1d9d643b1cf8e074
+commit cb7cc68
 Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Sat Dec 4 18:54:29 2010 +0200
+Date:   2010-12-04
 
     Rename ChangeLog to NEWS
 
- ChangeLog |   22 ----------------------
- NEWS      |   22 ++++++++++++++++++++++
- 2 files changed, 22 insertions(+), 22 deletions(-)
+ChangeLog
+NEWS
 
-commit f0302104f7c91c0abe7537046641c6227fb7260f
+commit f030210
 Author: Toni Gundogdu <legatvs.git@gmail.com>
-Date:   Sat Dec 4 18:12:11 2010 +0200
+Date:   2010-12-04
 
     Fix CMAKE_VERBOSE_MAKEFILE
 
- CMakeLists.txt |   16 ++++++++++------
- ChangeLog      |    1 +
- 2 files changed, 11 insertions(+), 6 deletions(-)
+CMakeLists.txt
+ChangeLog
 
-commit e791bacbf23b34762e9cecb6449cc0f19d5952e8
+commit e791bac
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Wed Dec 1 02:04:10 2010 +0200
+Date:   2010-12-01
 
     ChangeLog: About: quvi version fix
 
- ChangeLog |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ChangeLog
 
-commit 7786dd03b9c52c5f4ff2cd0f73ba3c55c2b553cb
+commit 7786dd0
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Wed Dec 1 02:00:25 2010 +0200
+Date:   2010-12-01
 
     tr/nomnom_fi.ts: remove now obsolete string
 
- tr/nomnom_fi.ts |   59 +++++++++++++++++++++++++-----------------------------
- 1 files changed, 27 insertions(+), 32 deletions(-)
+tr/nomnom_fi.ts
 
-commit f1212c6ae8a2840c7169f451eac0300a1342a3a2
+commit f1212c6
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Wed Dec 1 01:54:53 2010 +0200
+Date:   2010-12-01
 
     Fix "quvi --version" parsing
     
@@ -297,541 +1391,492 @@ Date:   Wed Dec 1 01:54:53 2010 +0200
     - Rewrite NomNom::parse_quvi_version to return errmsg
     - Rewrite Nomnom::parse_quvi_support to return errmsg
 
- src/i/About.cpp      |   35 ++++++++++++++++++---------------
- src/i/MainWindow.cpp |    7 ++++-
- src/main.cpp         |    3 ++
- src/util.cpp         |   52 ++++++++++++++++++++++++++-----------------------
- src/util.h           |    6 ++--
- 5 files changed, 58 insertions(+), 45 deletions(-)
+src/i/About.cpp
+src/i/MainWindow.cpp
+src/main.cpp
+src/util.cpp
+src/util.h
 
-commit d45e92b52741226926fd3776e41fdbeb717f8e14
+commit d45e92b
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Wed Dec 1 01:28:56 2010 +0200
+Date:   2010-12-01
 
     set new www home
 
- ChangeLog          |    1 +
- README             |    2 +-
- doc/HowtoTranslate |    2 +-
- i/About.ui         |    2 +-
- src/main.cpp       |    2 +-
- tr/nomnom_fi.ts    |    2 +-
- 6 files changed, 6 insertions(+), 5 deletions(-)
+ChangeLog
+README
+doc/HowtoTranslate
+i/About.ui
+src/main.cpp
+tr/nomnom_fi.ts
 
-commit 75aa9dd80a8174c6a7fd3dd35abe7d5a0169cced
+commit 75aa9dd
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Tue Nov 30 16:17:33 2010 +0200
+Date:   2010-11-30
 
     ChangeLog: remove obsolete detail
 
- ChangeLog |    1 -
- 1 files changed, 0 insertions(+), 1 deletions(-)
+ChangeLog
 
-commit a26a03fe114854a02613dd66d7c6953d53605cc2
+commit a26a03f
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Tue Nov 30 16:13:20 2010 +0200
+Date:   2010-11-30
 
     update finnish translation
 
- tr/nomnom_fi.ts |  125 ++++++++++++++++++++++++------------------------------
- 1 files changed, 56 insertions(+), 69 deletions(-)
+tr/nomnom_fi.ts
 
-commit 97bd4f9ce62d3329ba19f5b1ba486b47790af405
+commit 97bd4f9
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Tue Nov 30 16:13:14 2010 +0200
+Date:   2010-11-30
 
     fix tr strings
 
- src/i/MainWindow.cpp |   42 ++++++++++++++++++++++++++----------------
- 1 files changed, 26 insertions(+), 16 deletions(-)
+src/i/MainWindow.cpp
 
-commit 3731fd2a530186834e31eb62827680a604ada618
+commit 3731fd2
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Tue Nov 30 15:32:30 2010 +0200
+Date:   2010-11-30
 
     Improve quvi --support parsing
     
     - Strip extra args from quvi path
     - Log "quvi --support"
 
- src/util.cpp |   14 +++++++++++---
- 1 files changed, 11 insertions(+), 3 deletions(-)
+src/util.cpp
 
-commit 410c488cdc39d450b9ef3bf2cf50c7ff0ec84a69
+commit 410c488
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Tue Nov 30 15:03:15 2010 +0200
+Date:   2010-11-30
 
     fix browseSaveDirBtn connection
 
- i/Preferences.ui |   16 ++++++++++++++++
- 1 files changed, 16 insertions(+), 0 deletions(-)
+i/Preferences.ui
 
-commit 61a71c01e5bef2c8d8e1ff0b16d823f70600d04d
+commit 61a71c0
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Tue Nov 30 15:01:51 2010 +0200
+Date:   2010-11-30
 
     fix browseUmphBtn connection
 
- i/Preferences.ui |   16 ++++++++++++++++
- 1 files changed, 16 insertions(+), 0 deletions(-)
+i/Preferences.ui
 
-commit cfd28b4792cc885ecc18bb037c40c5ecf4d99f68
+commit cfd28b4
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Tue Nov 30 14:58:16 2010 +0200
+Date:   2010-11-30
 
     update finnish translation
 
- tr/nomnom_fi.ts |  478 +++++++++++++++++++++++++++++--------------------------
- 1 files changed, 256 insertions(+), 222 deletions(-)
+tr/nomnom_fi.ts
 
-commit ecf2a02bdd7ca2d7a9fdfad1b34c39f76a0306c4
+commit ecf2a02
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 27 19:33:27 2010 +0200
+Date:   2010-11-27
 
     CMakeLists.txt: status: use groups, add qt
 
- CMakeLists.txt |   38 +++++++++++++++++++++-----------------
- 1 files changed, 21 insertions(+), 17 deletions(-)
+CMakeLists.txt
 
-commit 3f308227689543e59810b6fd923cfa323465f193
+commit 3f30822
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Thu Nov 25 12:39:26 2010 +0200
+Date:   2010-11-25
 
     ChangeLog: add WITHOUT_*
 
- ChangeLog |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ChangeLog
 
-commit 2e51ce5423a0e37eb27a1d42c04015fb120a228b
+commit 2e51ce5
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Thu Nov 25 12:39:00 2010 +0200
+Date:   2010-11-25
 
     add WITHOUT_DESKTOP
 
- CMakeLists.txt |   20 ++++++++++++++++----
- INSTALL        |    3 +++
- 2 files changed, 19 insertions(+), 4 deletions(-)
+CMakeLists.txt
+INSTALL
 
-commit de5e4f4b412dd8d37c010b6f11966355aac4634d
+commit de5e4f4
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Thu Nov 25 12:31:17 2010 +0200
+Date:   2010-11-25
 
     add WITHOUT_QM
 
- CMakeLists.txt |   36 +++++++++++++++++++++++++++++-------
- INSTALL        |    3 +++
- 2 files changed, 32 insertions(+), 7 deletions(-)
+CMakeLists.txt
+INSTALL
 
-commit ff25ce640f8e841f05181bcb75da32a18c6bbb38
+commit ff25ce6
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Thu Nov 25 12:13:19 2010 +0200
+Date:   2010-11-25
 
     INSTALL: document WITHOUT_DOC
 
- INSTALL |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
+INSTALL
 
-commit c0d41d5fb40516b6fdc144ca81574415979cd44e
+commit c0d41d5
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Thu Nov 25 12:12:27 2010 +0200
+Date:   2010-11-25
 
     install doc/Howto*, add WITHOUT_DOC
 
- CMakeLists.txt     |   16 +++++++++++++++-
- doc/CMakeLists.txt |    9 +++++++++
- 2 files changed, 24 insertions(+), 1 deletions(-)
+CMakeLists.txt
+doc/CMakeLists.txt
 
-commit 1fca93f55017779f52af512bfe2fd4ae3336492c
+commit 1fca93f
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Thu Nov 25 11:11:51 2010 +0200
+Date:   2010-11-25
 
     fix: minimized to tray: show parent window
 
- src/util.cpp |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
+src/util.cpp
 
-commit d51eef106c18eafb4f1af3bde73242cd9e9603ea
+commit d51eef1
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Thu Nov 25 09:40:21 2010 +0200
+Date:   2010-11-25
 
     tips: add \"minimize when download starts\"
 
- src/tips.cpp |    4 ++++
- 1 files changed, 4 insertions(+), 0 deletions(-)
+src/tips.cpp
 
-commit acad64aeeba2195ede08012cb476cd71e1ff9145
+commit acad64a
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Thu Nov 25 09:35:48 2010 +0200
+Date:   2010-11-25
 
     tips: add "do not prompt for filename"
 
- src/tips.cpp |    5 +++++
- 1 files changed, 5 insertions(+), 0 deletions(-)
+src/tips.cpp
 
-commit 621632b36c5dcb1e710c98343609927a053cd7fc
+commit 621632b
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Thu Nov 25 09:33:26 2010 +0200
+Date:   2010-11-25
 
     tips: add feed
 
- src/tips.cpp |    5 +++++
- 1 files changed, 5 insertions(+), 0 deletions(-)
+src/tips.cpp
 
-commit bbced478939c140a9f1b68101d1b5407c2e668f7
+commit bbced47
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Thu Nov 25 09:29:27 2010 +0200
+Date:   2010-11-25
 
     tips: change history -> recent
 
- src/tips.cpp |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
+src/tips.cpp
 
-commit dd6bac87fcde1f98ca9d423bf45d38c2f4aad516
+commit dd6bac8
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Mon Nov 22 13:59:17 2010 +0200
+Date:   2010-11-22
 
     add "Minimize when download starts"
 
- ChangeLog             |    1 +
- i/Preferences.ui      |   20 ++++++++++++++------
- src/DownloadDiag.cpp  |    9 +++++++--
- src/i/Preferences.cpp |   13 +++++++++++++
- src/i/Preferences.h   |    2 ++
- 5 files changed, 37 insertions(+), 8 deletions(-)
+ChangeLog
+i/Preferences.ui
+src/DownloadDiag.cpp
+src/i/Preferences.cpp
+src/i/Preferences.h
 
-commit d261f61e021c8752f950bdffac9b5e20452fa001
+commit d261f61
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Mon Nov 22 12:00:22 2010 +0200
+Date:   2010-11-22
 
     INSTALL: lower umph prerequisite version
 
- INSTALL |    4 +---
- 1 files changed, 1 insertions(+), 3 deletions(-)
+INSTALL
 
-commit d928eb7bd3eb0c2cd2568246e749008a287ae57e
+commit d928eb7
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Mon Nov 22 11:59:10 2010 +0200
+Date:   2010-11-22
 
     remove -q from umph
 
- src/i/Preferences.cpp |    3 +--
- 1 files changed, 1 insertions(+), 2 deletions(-)
+src/i/Preferences.cpp
 
-commit ec73bdfc38e62f0e945f5460196763647c7e826a
+commit ec73bdf
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Mon Nov 22 11:39:51 2010 +0200
+Date:   2010-11-22
 
     update ChangeLog
 
- ChangeLog |    5 +++++
- 1 files changed, 5 insertions(+), 0 deletions(-)
+ChangeLog
 
-commit 413e019625405c23205de2420b0319ede6421642
+commit 413e019
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Mon Nov 22 11:36:46 2010 +0200
+Date:   2010-11-22
 
     restore if minimized and error occurs
 
- src/DownloadDiag.cpp |   11 ++++++++---
- src/DownloadDiag.h   |    2 +-
- src/ProcProgDiag.cpp |    6 ++++--
- src/i/MainWindow.cpp |    9 ---------
- src/i/MainWindow.h   |    2 --
- src/util.cpp         |   16 +++++++++++-----
- 6 files changed, 24 insertions(+), 22 deletions(-)
+src/DownloadDiag.cpp
+src/DownloadDiag.h
+src/ProcProgDiag.cpp
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/util.cpp
 
-commit b5d4853da758cc6fe997604609bd33071b9fc122
+commit b5d4853
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Mon Nov 22 11:29:33 2010 +0200
+Date:   2010-11-22
 
     YoutubeFeed: move set label, set max
 
- src/i/YoutubeFeed.cpp |    8 +++-----
- src/i/YoutubeFeed.h   |    3 ---
- 2 files changed, 3 insertions(+), 8 deletions(-)
+src/i/YoutubeFeed.cpp
+src/i/YoutubeFeed.h
 
-commit b3339861f4f7799c5836edfffb86e5bb5f622e3a
+commit b333986
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Mon Nov 22 10:07:41 2010 +0200
+Date:   2010-11-22
 
     replace main statusbar with ProcessProgressDialog
 
- i/MainWindow.ui      |   13 +--
- src/i/MainWindow.cpp |  275 ++++++++++++--------------------------------------
- src/i/MainWindow.h   |   20 ++---
- 3 files changed, 77 insertions(+), 231 deletions(-)
+i/MainWindow.ui
+src/i/MainWindow.cpp
+src/i/MainWindow.h
 
-commit b29634d7c1d4562ebcc96f5e9c906dfcc8aa83dc
+commit b29634d
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Mon Nov 22 10:05:23 2010 +0200
+Date:   2010-11-22
 
     rename _prog -> _proc
 
- src/i/YoutubeFeed.cpp |   13 +++++++------
- src/i/YoutubeFeed.h   |    2 +-
- 2 files changed, 8 insertions(+), 7 deletions(-)
+src/i/YoutubeFeed.cpp
+src/i/YoutubeFeed.h
 
-commit 5c1004cc4dd7e27b2c519147349bafffa039d88d
+commit 5c1004c
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sun Nov 21 23:56:30 2010 +0200
+Date:   2010-11-21
 
     History.* -> Recent.*
 
- CMakeLists.txt        |    4 +-
- i/Preferences.ui      |   12 +++++-----
- src/History.cpp       |   59 -------------------------------------------------
- src/History.h         |   45 -------------------------------------
- src/Recent.cpp        |   59 +++++++++++++++++++++++++++++++++++++++++++++++++
- src/Recent.h          |   45 +++++++++++++++++++++++++++++++++++++
- src/i/MainWindow.cpp  |   34 ++++++++++++++--------------
- src/i/MainWindow.h    |    2 +-
- src/i/Preferences.cpp |   10 ++++----
- src/i/Preferences.h   |    2 +-
- src/main.cpp          |   10 ++++----
- 11 files changed, 141 insertions(+), 141 deletions(-)
+CMakeLists.txt
+i/Preferences.ui
+src/History.cpp
+src/History.h
+src/Recent.cpp
+src/Recent.h
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/i/Preferences.cpp
+src/i/Preferences.h
+src/main.cpp
 
-commit 40707784b97d983c170d4bf845c5ae405852ee98
+commit 4070778
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sun Nov 21 23:46:13 2010 +0200
+Date:   2010-11-21
 
     additional umph specifiers
 
- src/i/Preferences.cpp |   24 ++++++++++++++++++++----
- src/i/YoutubeFeed.cpp |   18 +++++++++---------
- 2 files changed, 29 insertions(+), 13 deletions(-)
+src/i/Preferences.cpp
+src/i/YoutubeFeed.cpp
 
-commit c4f71a5b3666e1ac7fa76fb8c1cbaf89444a223d
+commit c4f71a5
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sun Nov 21 23:26:55 2010 +0200
+Date:   2010-11-21
 
     Preferences: remove grake path
 
- i/Preferences.ui      |  268 ++++++++++++++++++-------------------------------
- src/i/Preferences.cpp |   19 ----
- src/i/Preferences.h   |    2 -
- 3 files changed, 100 insertions(+), 189 deletions(-)
+i/Preferences.ui
+src/i/Preferences.cpp
+src/i/Preferences.h
 
-commit 8b8dbbd07c9602682f437cb13fad24765ca359d0
+commit 8b8dbbd
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 20 11:26:42 2010 +0200
+Date:   2010-11-20
 
     rewrite DownloadDialog::onCurlReadyRead
 
- src/DownloadDiag.cpp |   52 ++++++++++++++++---------------------------------
- 1 files changed, 17 insertions(+), 35 deletions(-)
+src/DownloadDiag.cpp
 
-commit e7f69ff60b1b512fd84e998160ef45c81bc2329e
+commit e7f69ff
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 20 11:06:02 2010 +0200
+Date:   2010-11-20
 
     Download.* -> DownloadDiag.*
 
- CMakeLists.txt       |    4 +-
- src/Download.cpp     |  178 --------------------------------------------------
- src/Download.h       |   48 --------------
- src/DownloadDiag.cpp |  178 ++++++++++++++++++++++++++++++++++++++++++++++++++
- src/DownloadDiag.h   |   48 ++++++++++++++
- src/i/MainWindow.cpp |    2 +-
- src/i/MainWindow.h   |    4 +-
- 7 files changed, 231 insertions(+), 231 deletions(-)
+CMakeLists.txt
+src/Download.cpp
+src/Download.h
+src/DownloadDiag.cpp
+src/DownloadDiag.h
+src/i/MainWindow.cpp
+src/i/MainWindow.h
 
-commit c0683537a10e88dbcb2c61b10f4213e77516309d
+commit c068353
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 20 11:00:17 2010 +0200
+Date:   2010-11-20
 
     fix file length check
 
- src/i/MainWindow.cpp |   14 +++++++++++---
- 1 files changed, 11 insertions(+), 3 deletions(-)
+src/i/MainWindow.cpp
 
-commit f22609307d1af8d857cb85e6c6499496a44d06e4
+commit f226093
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 20 10:50:59 2010 +0200
+Date:   2010-11-20
 
     Download::start: remove qDebug
 
- src/Download.cpp |    2 --
- 1 files changed, 0 insertions(+), 2 deletions(-)
+src/Download.cpp
 
-commit a107ce32cf13bbfadc7a0a8915f6febb8c016981
+commit a107ce3
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 20 01:22:17 2010 +0200
+Date:   2010-11-20
 
     ChangeLog: add savedir
 
- ChangeLog |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ChangeLog
 
-commit 3a9bee14bd623619e31c6db83b8861d41ee66279
+commit 3a9bee1
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 20 01:14:42 2010 +0200
+Date:   2010-11-20
 
     ChangeLog: add 769e7a,1b177a5,1318000,45d8c5b
 
- ChangeLog |    6 +++++-
- 1 files changed, 5 insertions(+), 1 deletions(-)
+ChangeLog
 
-commit 45d8c5b2a7780539e226d5dc705b91e04520970f
+commit 45d8c5b
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 20 01:10:16 2010 +0200
+Date:   2010-11-20
 
     Preferences: add "do not prompt for filename"
 
- i/Preferences.ui      |   29 ++++++++++++++++++-----------
- src/i/MainWindow.cpp  |   33 ++++++++++++++++++---------------
- src/i/Preferences.cpp |   13 +++++++++++++
- src/i/Preferences.h   |    4 +++-
- 4 files changed, 52 insertions(+), 27 deletions(-)
+i/Preferences.ui
+src/i/MainWindow.cpp
+src/i/Preferences.cpp
+src/i/Preferences.h
 
-commit 1318000b079f36efa5d80d5f28f05b8f6b744f7d
+commit 1318000
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 20 00:45:21 2010 +0200
+Date:   2010-11-20
 
     sort format ids
 
- src/util.cpp |   18 +++++++++++++++---
- 1 files changed, 15 insertions(+), 3 deletions(-)
+src/util.cpp
 
-commit 0be753c4f22229eeb92f99ef93960ad8753d6584
+commit 0be753c
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 20 00:22:26 2010 +0200
+Date:   2010-11-20
 
     comment out unused YoutubeFeed::onError
 
- src/i/YoutubeFeed.cpp |    7 +++++--
- src/i/YoutubeFeed.h   |    2 ++
- 2 files changed, 7 insertions(+), 2 deletions(-)
+src/i/YoutubeFeed.cpp
+src/i/YoutubeFeed.h
 
-commit 1b177a5fc1937a5bffb72fa69c6e8688a1577b3b
+commit 1b177a5
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Sat Nov 20 00:19:44 2010 +0200
+Date:   2010-11-20
 
     ignore error messages for canceled processes
 
- src/Download.cpp     |   53 ++++++++++++----------------------------
- src/Download.h       |    1 +
- src/i/MainWindow.cpp |   66 +++++++++++++++++++++----------------------------
- src/i/MainWindow.h   |    1 +
- 4 files changed, 46 insertions(+), 75 deletions(-)
+src/Download.cpp
+src/Download.h
+src/i/MainWindow.cpp
+src/i/MainWindow.h
 
-commit 687099c7012f693ad8b1adb584f8db20c9e87ea9
+commit 687099c
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Fri Nov 19 23:58:28 2010 +0200
+Date:   2010-11-19
 
     add missing punctuation mark
 
- src/i/MainWindow.cpp |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+src/i/MainWindow.cpp
 
-commit 769e7ac7774d4e1c0e418384860b7f36012df8e3
+commit 769e7ac
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Fri Nov 19 23:57:06 2010 +0200
+Date:   2010-11-19
 
     block attempts if quvi is still running
 
- src/i/MainWindow.cpp |   30 ++++++++++++++++++++++++------
- 1 files changed, 24 insertions(+), 6 deletions(-)
+src/i/MainWindow.cpp
 
-commit b0205818f1c342ee7fc7e3ee8c2c64028c747842
+commit b020581
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Fri Nov 19 23:39:31 2010 +0200
+Date:   2010-11-19
 
     INSTALL: add umph prereq
 
- INSTALL |   10 ++++++----
- 1 files changed, 6 insertions(+), 4 deletions(-)
+INSTALL
 
-commit 37c6cd493ad7965aed2c86f1fc7f3e497c153070
+commit 37c6cd4
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Fri Nov 19 23:39:19 2010 +0200
+Date:   2010-11-19
 
     ChangeLog: add youtube feed
 
- ChangeLog |    5 +++++
- 1 files changed, 5 insertions(+), 0 deletions(-)
+ChangeLog
 
-commit 11674e4f16df7d6cea3db6d21cd71f067b66e114
+commit 11674e4
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Fri Nov 19 23:29:47 2010 +0200
+Date:   2010-11-19
 
     add Youtube feed support
 
- CMakeLists.txt        |    5 ++
- i/YoutubeFeed.ui      |  173 +++++++++++++++++++++++++++++++++++++++++++++
- src/Download.cpp      |    4 +-
- src/ProcProgDiag.cpp  |  154 ++++++++++++++++++++++++++++++++++++++++
- src/ProcProgDiag.h    |   54 ++++++++++++++
- src/i/MainWindow.cpp  |   44 +++++++++++-
- src/i/Preferences.cpp |   14 ++--
- src/i/YoutubeFeed.cpp |  188 +++++++++++++++++++++++++++++++++++++++++++++++++
- src/i/YoutubeFeed.h   |   50 +++++++++++++
- src/main.cpp          |    3 +
- src/util.cpp          |   33 +++++++++
- src/util.h            |    5 ++
- 12 files changed, 715 insertions(+), 12 deletions(-)
+CMakeLists.txt
+i/YoutubeFeed.ui
+src/Download.cpp
+src/ProcProgDiag.cpp
+src/ProcProgDiag.h
+src/i/MainWindow.cpp
+src/i/Preferences.cpp
+src/i/YoutubeFeed.cpp
+src/i/YoutubeFeed.h
+src/main.cpp
+src/util.cpp
+src/util.h
 
-commit 84f62d1901eac50e3bc790e908561eaa1dae048d
+commit 84f62d1
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Wed Nov 17 18:31:14 2010 +0200
+Date:   2010-11-17
 
     bump version
 
- CMakeLists.txt |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+CMakeLists.txt
 
-commit e333abb0c73365478f56c0345a8645bf8ae1a82d
+commit e333abb
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Mon Nov 15 16:46:31 2010 +0200
+Date:   2010-11-15
 
     add ChangeLog, set release date
 
- ChangeLog |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
+ChangeLog
 
-commit 52a89321f69513472a1323c85e10a488ed974d6e
+commit 52a8932
 Author: legatvs <legatvs.git@gmail.com>
-Date:   Mon Nov 15 16:40:27 2010 +0200
+Date:   2010-11-15
 
     initial
 
- CMakeLists.txt        |  232 +++++++++++++++
- COPYING               |  674 ++++++++++++++++++++++++++++++++++++++++++++
- INSTALL               |  102 +++++++
- README                |   58 ++++
- config.h.cmake.in     |   12 +
- doc/HowtoTranslate    |  108 +++++++
- i/About.ui            |  142 ++++++++++
- i/LogView.ui          |   93 ++++++
- i/MainWindow.ui       |   74 +++++
- i/Preferences.ui      |  661 +++++++++++++++++++++++++++++++++++++++++++
- i/Reminder.ui         |  111 ++++++++
- nomnom.desktop.in     |    9 +
- rc/img/README         |    3 +
- rc/img/nomnom.png     |  Bin 0 -> 2610 bytes
- rc/nomnom.qrc         |    5 +
- src/Download.cpp      |  201 +++++++++++++
- src/Download.h        |   47 +++
- src/History.cpp       |   59 ++++
- src/History.h         |   45 +++
- src/Log.cpp           |   48 ++++
- src/Log.h             |   35 +++
- src/Video.cpp         |  148 ++++++++++
- src/Video.h           |   63 ++++
- src/i/About.cpp       |  106 +++++++
- src/i/About.h         |   34 +++
- src/i/LogView.cpp     |   68 +++++
- src/i/LogView.h       |   37 +++
- src/i/MainWindow.cpp  |  746 +++++++++++++++++++++++++++++++++++++++++++++++++
- src/i/MainWindow.h    |   82 ++++++
- src/i/Preferences.cpp |  478 +++++++++++++++++++++++++++++++
- src/i/Preferences.h   |   88 ++++++
- src/i/Reminder.cpp    |   95 +++++++
- src/i/Reminder.h      |   45 +++
- src/main.cpp          |  101 +++++++
- src/tips.cpp          |  103 +++++++
- src/tips.h            |   33 +++
- src/util.cpp          |  432 ++++++++++++++++++++++++++++
- src/util.h            |  107 +++++++
- tr/nomnom_fi.ts       |  713 ++++++++++++++++++++++++++++++++++++++++++++++
- uninstall.cmake.in    |   21 ++
- 40 files changed, 6219 insertions(+), 0 deletions(-)
+CMakeLists.txt
+COPYING
+INSTALL
+README
+config.h.cmake.in
+doc/HowtoTranslate
+i/About.ui
+i/LogView.ui
+i/MainWindow.ui
+i/Preferences.ui
+i/Reminder.ui
+nomnom.desktop.in
+rc/img/README
+rc/img/nomnom.png
+rc/nomnom.qrc
+src/Download.cpp
+src/Download.h
+src/History.cpp
+src/History.h
+src/Log.cpp
+src/Log.h
+src/Video.cpp
+src/Video.h
+src/i/About.cpp
+src/i/About.h
+src/i/LogView.cpp
+src/i/LogView.h
+src/i/MainWindow.cpp
+src/i/MainWindow.h
+src/i/Preferences.cpp
+src/i/Preferences.h
+src/i/Reminder.cpp
+src/i/Reminder.h
+src/main.cpp
+src/tips.cpp
+src/tips.h
+src/util.cpp
+src/util.h
+tr/nomnom_fi.ts
+uninstall.cmake.in

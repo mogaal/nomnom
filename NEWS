@@ -1,4 +1,66 @@
 
+0.3.1  Sun Nov 06 2011  Toni Gundogdu
+
+Changes:
+    - Add "Copy to clipboard" to (recent) log dialog
+    - Add "Always get the best media format" option
+    - Improve handling of user entered URLs
+    - Update Finnish translation
+
+
+0.3.0  Sun Oct 30 2011  Toni Gundogdu
+
+Changes:
+  - Add improved dialog for displaying "recent URLs"
+    - Revise log (recent) subsystem
+  - Add dialog for displaying "error while running command"
+  - Use QJson for parsing umph and quvi output
+    - Make QJson a new prerequisite
+    - Remove QtScript prerequisite
+  - Make curl use a custom user-agent by default
+  - Update Finnish translation
+
+Bugfixes:
+  - umph integration ("nothing found" even when feed contains items)
+    - Caused by incorrectly parsed and re-joined command line args
+
+
+0.2.0  Fri Oct 21 2011  Toni Gundogdu
+
+Changes:
+  - Revise YouTube feed (umph) integration, add support for umph "--all"
+  - Add command (media stream parser, player, ...) detection from $PATH
+  - Add command line options (--detect, --locale, --config-path, ...)
+  - Improve progress dialogs used with quvi and curl commands
+  - Improve error handling with commands
+  - Revise system icon tray integration
+  - Use GNU Autotools instead of CMake
+  - Remove subsystems log and tips
+  - Revise translation subsystem
+  - Update Finnish translation
+  - Revise nomnom.desktop file
+  - Revise settings subsystem
+  - Revise about dialog
+  - Revise manual page
+
+
+0.1.4  Sat Jun 18 2011  Toni Gundogdu
+
+Changes:
+        - Add German translation (#5), thanks Andre
+        - Add "Enter format" to format selection
+        - Update Finnish translation
+
+
+0.1.3  Tue May 03 2011  Toni Gundogdu
+Changes:
+        - Remove depr. "Encoding" key from nomnom.desktop (#2)
+        - Install xpm (instead of png) to share/pixmaps/ (#3)
+        - Recently visited URLs: Last is now top-most
+        - Log: Last entry is now top-most
+        - Add manual (#4)
+
+
 0.1.2   Mon Feb 07 2011     Toni Gundogdu
 Changes:
         - Make use of a custom program icon possible

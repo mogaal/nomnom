@@ -1,0 +1,143 @@
+
+HOWTO: Translate NomNom
+=======================
+
+Prerequisites
+-------------
+
+Make sure you have installed Qt development libraries with with the Qt
+tools (e.g. qmake, linguist, lupdate and lrelease). See the INSTALL file
+in the nomnom top source directory for the other prerequisites that nomnom
+depends on.
+
+Before you get started
+----------------------
+
+Get the latest version of nomnom from:
+  http://nomnom.sourceforge.net/
+
+Please *do not* use the development code from nomnom git repository as
+it is subject to frequent changes.
+
+  tar xf nomnom-$release.tar.* ; cd nomnom-$release
+  mkdir tmp ; cd tmp
+  ../configure ; make
+
+The translation subsystem of nomnom supports the following environment
+settings:
+
+ * N_QM_SHOW_SCANDIR ;# display the scanned (for .qm files) dirs
+ * N_QM_SHOW         ;# display the found .qm files
+
+ Example: env N_QM_SHOW_SCANDIR=1 N_QM_SHOW=1 ./src/nomnom
+
+The subsystem picks the system locale setting and tries to match it to
+one of the found .qm files. If one is found, the .qm is loaded.
+
+The default language (English) is built-in and is does not have a
+string to identify it. If nothing was matched to the existing .qm files,
+the subsystem defaults to English.
+
+Please note that some elements of nomnom cannot be translated as they
+are part of the core system of Qt. Examples of this are the standard
+buttons seen in many of the dialogs. Make sure you have installed the Qt
+library translations along with the rest of the Qt and that your system
+locale is set to the appropriate value, e.g.:
+
+  env LANG=de_DE.UTF-8 ./src/nomnom
+
+
+Key accelerators
+----------------
+
+Please make sure you set accelerators so that they are not in conflict
+with one another. For example, instead of two widgets using the same
+(e.g. Alt+F) use a different combination for the other so that they
+do not interfere with one another.
+
+
+Untranslatable strings
+----------------------
+
+  * GPLv3+ license found in About / License
+    These are the contents of the COPYING file
+
+
+Creating a new .ts file
+=======================
+
+The translations exist in .ts files, you can read more about them here:
+  http://doc.qt.nokia.com/latest/internationalization.html
+
+We will use a wrapper script ("gen-tr.sh") to handle the .ts files in the
+following examples. If you are interested, have a look at the script for
+the essentials.
+
+Getting started
+---------------
+
+Let's assume you are going to create the French translation for nomnom.
+These examples assume that you have created the 'tmp' VPATH as described
+in the "Before you get started" above.
+
+  cd nomnom-$release                    ;# cd to the top source dir
+  ./gen-tr.sh -n tr/NomNom_fr_FR.ts     ;# create the French .ts
+  linguist tr/NomNom_fr_FR.ts           ;# translate using linguist
+
+Once you have gone over all of the translatable strings, exit linguist
+and run:
+
+  cd tmp                                ;# cd to 'tmp' dir
+  ../gen-tr.sh -r ../tr/NomNom_fr_FR.ts ;# produce .qm file
+  cp ../tr/NomNom_fr_FR.qm tr/          ;# cp .qm to $top_srcdir/tmp/tr/
+  env LANG=fr_FR.UTF-8 ./src/nomnom     ;# assumes "language=" in config
+
+Note that the last step does not have to include the LANG setting.
+
+It is possible to use the linguist application (File / Release) for the
+same effect that of running "gen-tr.sh -r".
+
+You should now be able to choose the language from the application
+settings.
+
+
+Updating an existing translation
+================================
+
+The steps are very similar to the ones above. Let's assume you have
+noticed that the existing French translation is missing some of the
+new strings introduced in a later version of nomnom.
+
+  cd nomnom-$release                ;# cd to top source dir
+  ./gen-tr.sh -u                    ;# this updates all existing .ts files
+  linguist tr/NomNom_fr_FR.ts       ;# edit the update .ts
+  mkdir tmp ; cd tmp                ;# cd to 'tmp' dir
+  ../configure ; make               ;# build nomnom
+  ./src/nomnom
+
+The "make" produces the updated .qm file initially. If you, however,
+edit the ../tr/NomNom_fr_FR.ts file after this, you have to:
+
+  (edit ../tr/NomNom_fr_FR.ts)
+  ../gen-tr.sh -r ../tr/NomNom_fr_FR.ts ;# produce .qm file
+  cp ../tr/NomNom_fr_FR.qm tr/          ;# cp .qm to $top_srcdir/tmp/tr/
+
+This is because the current Makefiles do not track the .ts files for
+changes.
+
+Once you have (re)generated the .qm, you can:
+
+  env LANG=fr_FR.UTF-8 ./src/nomnom     ;# assumes "language=" in config
+
+See the notes above about LANG and choosing the language from the
+dialog.
+
+
+Contributing .ts to the project
+===============================
+
+If you would like to contribute your .ts (new or updated) to the project,
+please open a new ticket at:
+  http://sourceforge.net/apps/trac/nomnom ;# you will need sf account
+
+We can then add the .ts to the nomnom dist. Thanks!
