@@ -1,8 +1,7 @@
-
-
-Format: http://dep.debian.net/deps/dep5
-Upstream-Name: nomnom
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Contact: Toni Gundogdu <legatvs@gmail.com>
 Source: http://nomnom.sourceforge.net
+Upstream-Name: nomnom
 
 Files: *
 Copyright: 2010 Toni Gundogdu <legatvs@gmail.com>
