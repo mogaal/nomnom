@@ -2,11 +2,12 @@ Source: nomnom
 Section: video
 Priority: extra
 Maintainer: Alejandro Garrido Mota <garridomota@gmail.com>
-Build-Depends: debhelper (>= 7.0.50~), cmake, libqt4-dev, pkg-config, 
+Build-Depends: debhelper (>= 7.0.50~), dh-autoreconf, libqt4-dev, pkg-config, 
                libqjson-dev
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Homepage: http://nomnom.sourceforge.net/
 Vcs-Git: git://github.com/mogaal/nomnom
+Vcs-Browser: https://github.com/mogaal/nomnom
 
 Package: nomnom
 Architecture: any
