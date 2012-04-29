@@ -13,7 +13,7 @@ Package: nomnom
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, quvi, curl
 Description: download videos from Youtube and other similar video websites
- application for downloading videos from Youtube and other similar
+ Application for downloading videos from Youtube and other similar
  video websites that require Adobe Flash to view the video content. Video
  streaming or downloading can be started simply by dropping an URL onto the
  application window.
