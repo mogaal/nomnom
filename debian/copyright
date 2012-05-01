@@ -4,11 +4,11 @@ Source: http://nomnom.sourceforge.net
 Upstream-Name: nomnom
 
 Files: *
-Copyright: 2010 Toni Gundogdu <legatvs@gmail.com>
+Copyright: 2010-2011 Toni Gundogdu <legatvs@gmail.com>
 License: GPL-3+
 
 Files: debian/*
-Copyright: 2011 Alejandro Garrido Mota <garridomota@gmail.com>
+Copyright: 2012 Alejandro Garrido Mota <garridomota@gmail.com>
 License: GPL-3+
 
 License: GPL-3+
