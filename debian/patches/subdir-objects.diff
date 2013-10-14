@@ -1,0 +1,17 @@
+Description: Add subdir-objects to AM_INIT_AUTOMAKE variable
+Author: Alejandro Garrido Mota <alejandro@debian.org>
+Bug-Debian: http://bugs.debian.org/725527
+
+--- a/configure.ac
++++ b/configure.ac
+@@ -19,8 +19,8 @@
+ AC_DEFINE_UNQUOTED([CANONICAL_TARGET], "$target", [...])
+ AC_DEFINE_UNQUOTED([CANONICAL_HOST], "$host", [...])
+ 
+-AM_INIT_AUTOMAKE([-Wall -Werror foreign dist-bzip2 dist-xz])
+-AM_SILENT_RULES([yes])
++AM_INIT_AUTOMAKE([-Wall -Werror foreign dist-bzip2 dist-xz subdir-objects])
++AM_SILENT_RULES([no])
+ 
+ # Checks for programs.
+ AC_PROG_CXX

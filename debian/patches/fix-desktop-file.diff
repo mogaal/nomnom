@@ -1,0 +1,18 @@
+Description: Fixed compatibility issues with lintian in desktop file
+Author: Alejandro Garrido Mota <alejandro@debian.org>
+
+--- a/nomnom.desktop.in
++++ b/nomnom.desktop.in
+@@ -2,9 +2,10 @@
+ Name=NomNom
+ Comment=Download and stream media
+ Exec=@prefix@/bin/nomnom
+-Icon=nomnom.xpm
++Icon=nomnom
+ Type=Application
+ Terminal=false
+ StartupNotify=true
+-Categories=Network;AudioVideo;
++Categories=AudioVideo;
+ Version=@VERSION@
++Keywords=youtube;Audio;Video;Downloads;
